@@ -3,7 +3,9 @@ package modelo.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import modelo.dao.GenericDAO;
 
@@ -23,7 +25,10 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 
 	@Override
 	public List<T> getAll() {
-		return null;
+		String sentenciaJPQL = "Select t From " + persistentClass.getSimpleName() + " t";
+		System.out.println(sentenciaJPQL);
+		Query query1 = em.createQuery(sentenciaJPQL);
+		return query1.getResultList();
 	}
 
 	@Override
@@ -33,7 +38,7 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 			em.persist(entity);
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println("Error de inserción");
+			System.out.println("Error de inserciï¿½n");
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
@@ -47,7 +52,7 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 			em.merge(entity);
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println("Error de inserción");
+			System.out.println("Error de inserciï¿½n");
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
@@ -61,7 +66,7 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 			em.remove(entity);
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println("Error de inserción");
+			System.out.println("Error de inserciï¿½n");
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
