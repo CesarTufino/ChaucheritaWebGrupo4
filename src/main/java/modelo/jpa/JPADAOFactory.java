@@ -19,7 +19,7 @@ public class JPADAOFactory extends DAOFactory{
 	}
 
 	@Override
-	public MovimientoDAO Movimiento() {
+	public MovimientoDAO getMovimientoDAO() {
 		return new JPAMovimientoDAO();
 	}
 

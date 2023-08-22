@@ -12,12 +12,12 @@
 		<thead>
 			<tr>
 				<th scope="col">ID</th>
-				<th scope="col">Cta. Origen</th>
-				<th scope="col">Cta. Destino</th>
-				<th scope="col">Tipo</th>
-				<th scope="col">Monto</th>
+				<th scope="col">Cuenta Origen</th>
+				<th scope="col">Cuenta Destino</th>
+				<th scope="col">Concepto</th>
 				<th scope="col">Fecha</th>
-				<th scope="col">Ver</th>
+				<th scope="col">Valor</th>
+				<!--<th scope="col">Ver</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -28,119 +28,7 @@
 				<td>placeholder</td>
 				<td>text</td>
 				<td>text</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,002</td>
-				<td>placeholder</td>
-				<td>irrelevant</td>
-				<td>visual</td>
-				<td>layout</td>
-				<td>layout</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,003</td>
-				<td>data</td>
-				<td>rich</td>
-				<td>dashboard</td>
-				<td>tabular</td>
-				<td>tabular</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,003</td>
-				<td>information</td>
-				<td>placeholder</td>
-				<td>illustrative</td>
-				<td>data</td>
-				<td>data</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,004</td>
-				<td>text</td>
-				<td>random</td>
-				<td>layout</td>
-				<td>dashboard</td>
-				<td>dashboard</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,005</td>
-				<td>dashboard</td>
-				<td>irrelevant</td>
-				<td>text</td>
-				<td>placeholder</td>
-				<td>placeholder</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,006</td>
-				<td>dashboard</td>
-				<td>illustrative</td>
-				<td>rich</td>
-				<td>data</td>
-				<td>data</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,007</td>
-				<td>placeholder</td>
-				<td>tabular</td>
-				<td>information</td>
-				<td>irrelevant</td>
-				<td>irrelevant</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,008</td>
-				<td>random</td>
-				<td>data</td>
-				<td>placeholder</td>
-				<td>text</td>
-				<td>text</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,009</td>
-				<td>placeholder</td>
-				<td>irrelevant</td>
-				<td>visual</td>
-				<td>layout</td>
-				<td>layout</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
-			</tr>
-			<tr>
-				<td>1,010</td>
-				<td>data</td>
-				<td>rich</td>
-				<td>dashboard</td>
-				<td>tabular</td>
-				<td>tabular</td>
-				<td><a href="detalle-movimiento.html"
-					class="btn btn-outline-primary"><i
-						class="bi bi-eye-fill"></i></a></td>
+				<!-- <td><a href="detalle-movimiento.html" class="btn btn-outline-primary"><i class="bi bi-eye-fill"></i></a></td> -->
 			</tr>
 		</tbody>
 	</table>

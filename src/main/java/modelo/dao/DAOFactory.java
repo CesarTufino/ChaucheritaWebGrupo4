@@ -13,7 +13,7 @@ public abstract class DAOFactory {
 	
 	public abstract CuentaDAO getCuentaDAO();
 	
-	public abstract MovimientoDAO Movimiento();
+	public abstract MovimientoDAO getMovimientoDAO();
 	
 	public abstract CategoriaDAO getCategoriaDAO();
 

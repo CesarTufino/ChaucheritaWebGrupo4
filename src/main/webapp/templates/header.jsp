@@ -349,26 +349,26 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#">
+                  <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=vizualizarTodo">
                     <i class="bi bi-arrow-left-right"></i>
                     Movimientos
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#">
+                  <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=iniciarIngreso">
                     <i class="bi bi-download"></i>
                     Ingresar Dinero
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#">
+                  <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=iniciarEgreso">
                     <i class="bi bi-cash-stack"></i>
                     Retirar Dinero
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#">
+                  <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=iniciarTransferencia">
                     <i class="bi bi-bank"></i>
                     Tranferencia
                   </a>
@@ -377,7 +377,7 @@
                 <li class="nav-item">
                   <a class="nav-link d-flex align-items-center gap-2" href="#">
                     <i class="bi bi-wallet"></i>
-                    Reportes
+                    <!--Reportes -->
                   </a>
                 </li>
               </ul>

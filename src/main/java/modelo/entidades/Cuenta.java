@@ -19,7 +19,7 @@ public class Cuenta implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "nombre_cuenta")
+	@Column(name = "nombre")
 	private String nombre;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario propietario;

@@ -38,7 +38,6 @@ public class Movimiento implements Serializable {
 	
 	public Movimiento(int id, String descripcion, double valor, Categoria categoria, TipoMovimiento tipo,
 			Cuenta cuenta) {
-		super();
 		this.id = id;
 		this.descripcion = descripcion;
 		this.valor = valor;
@@ -87,12 +86,12 @@ public class Movimiento implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public Cuenta getCuenta() {
+	public Cuenta getCuentaOrigen() {
 		return cuenta;
 	}
 
-	public void setCuenta(Cuenta cuenta) {
+	public void setCuentaOrigen(Cuenta cuenta) {
 		this.cuenta = cuenta;
 	}
-
+	
 }

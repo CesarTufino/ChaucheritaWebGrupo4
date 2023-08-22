@@ -31,11 +31,11 @@
 <body>
 	<div class="container my-5">
 		<h1 class="d-block text-center">Inicio de sesión</h1>
-		<form action="" class="w-50 mx-auto shadow my-3 p-3">
+		<form action="LoginController?ruta=ingresar" method="POST" class="w-50 mx-auto shadow my-3 p-3">
 			<div class="input-group my-3">
 				<label for="username" class="input-group-text"><i
 					class="bi bi-person-fill me-2"></i>Usuario</label> <input id="username"
-					id="username" type="text" class="form-control"
+					name="username" type="text" class="form-control"
 					placeholder="Ingrese su usuario" aria-label="Username"
 					aria-describedby="basic-addon1" />
 			</div>
