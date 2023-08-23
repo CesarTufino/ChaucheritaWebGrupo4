@@ -35,6 +35,9 @@ public class DashboardController extends HttpServlet {
 		case "iniciar":
 			this.iniciar(request, response);
 			break;
+		case "ajustar":
+			this.ajustar(request, response);
+			break;
 		default:
 			break;
 		}
@@ -49,6 +52,17 @@ public class DashboardController extends HttpServlet {
 		
 		//request.setAttribute("movimientos", movimientos);
 		request.getRequestDispatcher("jsp/dashboard/dashboard.jsp").forward(request, response);
+	}
+	
+	private void ajustar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int mes = 1;
+		List<CategoriaTotalDTO> categoriasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalByCategoria(mes);
+		
+		
+		
+		//request.setAttribute("movimientos", movimientos);
+		request.getRequestDispatcher("jsp/dashboard/ajustar-saldo.jsp").forward(request, response);
 	}
 	
 }
