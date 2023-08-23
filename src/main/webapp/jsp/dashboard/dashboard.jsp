@@ -19,9 +19,11 @@
 <div><a href="#">Cuentas de Gasto</a></div>
 <div>Cuenta 1</div>
 <div>Total</div>
+<a href="DashboardController?ruta=ajustar" >Ajustar Cuenta</a>
 
 <div><a href="#">Cuentas de Ingreso</a></div>
 <div>Cuenta 1</div>
 <div>Total</div>
+
 
 <jsp:include page="../../templates/footer.jsp" />
