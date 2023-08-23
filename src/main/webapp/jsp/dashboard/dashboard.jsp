@@ -12,17 +12,18 @@
 <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>/-->
 
 <h2>Cambiar Intervalo Fecha</h2>
-<div><a href="#">Cuentas de Entrada y Salida</a></div>
-<div>Cuenta 1</div>
-<div>Total</div>
-
-<div><a href="#">Cuentas de Gasto</a></div>
+<div><a href="#">Cuentas</a></div>
 <div>Cuenta 1</div>
 <div>Total</div>
 <a href="DashboardController?ruta=ajustar" >Ajustar Cuenta</a>
 
-<div><a href="#">Cuentas de Ingreso</a></div>
-<div>Cuenta 1</div>
+<div><a href="#">Categoría de egreso</a></div>
+<div>Categoría 1</div>
+<div>Total</div>
+
+
+<div><a href="#">Categoría de Ingreso</a></div>
+<div>Categoría 2</div>
 <div>Total</div>
 
 
