@@ -2,8 +2,9 @@ package modelo.entidades;
 
 public enum TipoMovimiento {
 	INGRESO(1,"Ingreso"),
-	EGRESO(2,"Egreso");
-	//TRANSFERENCIA(3,"Transferencia"),
+	EGRESO(2,"Egreso"),
+	TRANSFERENCIA(3,"Transferencia"),
+	AJUSTE(4,"Ajuste");
 	
 	private int id;
 	private String descripcion;

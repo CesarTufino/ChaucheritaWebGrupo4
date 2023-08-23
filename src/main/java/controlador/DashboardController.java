@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import modelo.dao.DAOFactory;
 import modelo.dto.CategoriaTotalDTO;
+import modelo.dto.CuentaDTO;
+import modelo.entidades.Cuenta;
 import modelo.entidades.Movimiento;
 
 @WebServlet("/DashboardController")
@@ -42,13 +44,17 @@ public class DashboardController extends HttpServlet {
 	
 	private void iniciar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int mes = 1;
-		List<CategoriaTotalDTO> categoriasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalByCategoria(mes);
-		
+		//int mes = 1;
+		//List<CategoriaTotalDTO> categoriasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalByCategoria(mes);
+		List<Cuenta> cuentaTotalDTO = DAOFactory.getFactory().getCuentaDAO().getAll();
 		
 		
 		//request.setAttribute("movimientos", movimientos);
 		request.getRequestDispatcher("jsp/dashboard/dashboard.jsp").forward(request, response);
 	}
+	
+	
+	
+	
 	
 }

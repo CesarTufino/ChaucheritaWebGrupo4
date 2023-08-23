@@ -19,7 +19,11 @@ public class Categoria implements Serializable {
 	private int id;
 	@Column(name = "nombre")
 	private String nombre;
-
+	
+	@Column(name = "tipo")
+	private TipoMovimiento tipoMovimiento;
+	
+	
 	public Categoria() {
 
 	}
@@ -40,6 +44,15 @@ public class Categoria implements Serializable {
 
 	public String getNombre() {
 		return nombre;
+	}
+	
+
+	public TipoMovimiento getTipoMovimiento() {
+		return tipoMovimiento;
+	}
+
+	public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
+		this.tipoMovimiento = tipoMovimiento;
 	}
 
 	public void setNombre(String nombre) {

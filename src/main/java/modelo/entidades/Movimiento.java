@@ -30,7 +30,7 @@ public class Movimiento implements Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "cuenta")
 	private Cuenta cuenta;
-	private TipoMovimiento tipo;
+
 
 	public Movimiento() {
 
@@ -42,7 +42,6 @@ public class Movimiento implements Serializable {
 		this.descripcion = descripcion;
 		this.valor = valor;
 		this.categoria = categoria;
-		this.tipo = tipo;
 		this.cuenta = cuenta;
 	}
 
@@ -76,14 +75,6 @@ public class Movimiento implements Serializable {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
-	}
-
-	public TipoMovimiento getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoMovimiento tipo) {
-		this.tipo = tipo;
 	}
 
 	public Cuenta getCuentaOrigen() {
