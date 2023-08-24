@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,7 +23,8 @@ public class Cuenta implements Serializable {
 	private int id;
 	@Column(name = "nombre")
 	private String nombre;
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "propietario")
 	private Usuario propietario;
 
 	public Cuenta() {

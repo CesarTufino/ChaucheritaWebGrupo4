@@ -1,6 +1,7 @@
 package modelo.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,16 +22,21 @@ public class Movimiento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "descripcion")
-	private String descripcion;
+	@Column(name = "concepto")
+	private String concepto;
 	@Column(name = "valor")
 	private double valor;
+	@Column(name = "fecha")
+	private Date fecha;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "categoria")
 	private Categoria categoria;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "cuenta")
 	private Cuenta cuenta;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "relacion")
+	private Movimiento relacion;
 
 
 	public Movimiento() {
@@ -39,7 +46,7 @@ public class Movimiento implements Serializable {
 	public Movimiento(int id, String descripcion, double valor, Categoria categoria, TipoMovimiento tipo,
 			Cuenta cuenta) {
 		this.id = id;
-		this.descripcion = descripcion;
+		this.concepto = descripcion;
 		this.valor = valor;
 		this.categoria = categoria;
 		this.cuenta = cuenta;
@@ -54,11 +61,11 @@ public class Movimiento implements Serializable {
 	}
 
 	public String getDescripcion() {
-		return descripcion;
+		return concepto;
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.concepto = descripcion;
 	}
 
 	public double getValor() {

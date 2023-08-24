@@ -2,11 +2,14 @@ package modelo.entidades;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,9 +22,7 @@ public class Categoria implements Serializable {
 	private int id;
 	@Column(name = "nombre")
 	private String nombre;
-	
-	@Column(name = "tipo")
-	private TipoMovimiento tipoMovimiento;
+	private TipoMovimiento tipo;
 	
 	
 	public Categoria() {
@@ -48,11 +49,11 @@ public class Categoria implements Serializable {
 	
 
 	public TipoMovimiento getTipoMovimiento() {
-		return tipoMovimiento;
+		return tipo;
 	}
 
 	public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
-		this.tipoMovimiento = tipoMovimiento;
+		this.tipo = tipoMovimiento;
 	}
 
 	public void setNombre(String nombre) {

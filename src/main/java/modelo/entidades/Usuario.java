@@ -19,8 +19,6 @@ public class Usuario implements Serializable{
 	private int id;
 	@Column(name = "nombre")
 	private String nombre;
-	@Column(name = "username")
-	private String username;
 	@Column(name = "clave")
 	private String clave;
 	
@@ -28,11 +26,10 @@ public class Usuario implements Serializable{
 		
 	}
 	
-	public Usuario(int id, String nombre, String username, String clave) {
+	public Usuario(int id, String nombre, String clave) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.username = username;
 		this.clave = clave;
 	}
 
@@ -50,14 +47,6 @@ public class Usuario implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getClave() {
