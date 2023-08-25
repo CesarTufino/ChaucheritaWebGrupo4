@@ -6,17 +6,19 @@ public class CategoriaTotalDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nombre;
-	private double total;
 	private int tipo;
+	private double total;
 
 	public CategoriaTotalDTO() {
 
 	}
 
-	public CategoriaTotalDTO(int id, String nombre) {
+	public CategoriaTotalDTO(int id, String nombre, int tipo, double total) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.tipo = tipo;
+		this.total = total;
 	}
 
 	public int getId() {

@@ -1,7 +1,7 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "movimiento")
@@ -27,7 +29,8 @@ public class Movimiento implements Serializable {
 	@Column(name = "valor")
 	private double valor;
 	@Column(name = "fecha")
-	private Date fecha;
+	@Temporal(TemporalType.DATE)
+	private Calendar fecha;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "categoria")
 	private Categoria categoria;
@@ -43,13 +46,26 @@ public class Movimiento implements Serializable {
 
 	}
 	
-	public Movimiento(int id, String descripcion, double valor, Categoria categoria, TipoMovimiento tipo,
+	public Movimiento(int id, String concepto, double valor, Calendar fecha, Categoria categoria,
 			Cuenta cuenta) {
 		this.id = id;
-		this.concepto = descripcion;
+		this.concepto = concepto;
 		this.valor = valor;
+		this.fecha = fecha;
 		this.categoria = categoria;
 		this.cuenta = cuenta;
+	}
+
+	public Movimiento(int id, String concepto, double valor, Calendar fecha, Categoria categoria, Cuenta cuenta,
+			Movimiento relacion) {
+		super();
+		this.id = id;
+		this.concepto = concepto;
+		this.valor = valor;
+		this.fecha = fecha;
+		this.categoria = categoria;
+		this.cuenta = cuenta;
+		this.relacion = relacion;
 	}
 
 	public int getId() {
@@ -58,14 +74,6 @@ public class Movimiento implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getDescripcion() {
-		return concepto;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.concepto = descripcion;
 	}
 
 	public double getValor() {
@@ -84,12 +92,38 @@ public class Movimiento implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public Cuenta getCuentaOrigen() {
+	public String getConcepto() {
+		return concepto;
+	}
+
+	public void setConcepto(String concepto) {
+		this.concepto = concepto;
+	}
+
+	public Calendar getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Calendar fecha) {
+		this.fecha = fecha;
+	}
+
+	public Cuenta getCuenta() {
 		return cuenta;
 	}
 
-	public void setCuentaOrigen(Cuenta cuenta) {
+	public void setCuenta(Cuenta cuenta) {
 		this.cuenta = cuenta;
 	}
+
+	public Movimiento getRelacion() {
+		return relacion;
+	}
+
+	public void setRelacion(Movimiento relacion) {
+		this.relacion = relacion;
+	}
+	
+	
 	
 }
