@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import modelo.dao.DAOFactory;
 import modelo.entidades.Movimiento;
-import modelo.entidades.TipoMovimiento;
+import modelo.entidades.Tipo;
 
 @WebServlet("/MovimientoController")
 public class MovimientoController extends HttpServlet {
@@ -47,6 +47,12 @@ public class MovimientoController extends HttpServlet {
 		case "iniciarTransferencia":
 			this.iniciarTransferencia(request, response);
 			break;
+		case "verCuentas":
+			this.verCuentas(request, response);
+			break;
+		case "verCategorias":
+			this.verCategorias(request, response);
+			break;
 		default:
 			break;
 		}
@@ -55,9 +61,9 @@ public class MovimientoController extends HttpServlet {
 	private void vizualizarTodo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
+		//List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
 
-		request.setAttribute("movimientos", movimientos);
+		//request.setAttribute("movimientos", movimientos);
 
 		request.getRequestDispatcher("jsp/dashboard/movimientos.jsp").forward(request, response);
 	}
@@ -65,9 +71,9 @@ public class MovimientoController extends HttpServlet {
 	private void iniciarIngreso(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
+		//List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
 
-		request.setAttribute("movimientos", movimientos);
+		//request.setAttribute("movimientos", movimientos);
 
 		request.getRequestDispatcher("jsp/dashboard/ingreso.jsp").forward(request, response);
 	}
@@ -76,9 +82,9 @@ public class MovimientoController extends HttpServlet {
 	private void iniciarEgreso(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
+		//List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
 
-		request.setAttribute("movimientos", movimientos);
+		//request.setAttribute("movimientos", movimientos);
 
 		request.getRequestDispatcher("jsp/dashboard/egreso.jsp").forward(request, response);
 	}
@@ -86,10 +92,30 @@ public class MovimientoController extends HttpServlet {
 	private void iniciarTransferencia(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
+		//List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
 
-		request.setAttribute("movimientos", movimientos);
+		//request.setAttribute("movimientos", movimientos);
 
 		request.getRequestDispatcher("jsp/dashboard/transferencia.jsp").forward(request, response);
+	}
+	
+	private void verCuentas(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		//List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
+
+		//request.setAttribute("movimientos", movimientos);
+
+		request.getRequestDispatcher("jsp/dashboard/cuenta.jsp").forward(request, response);
+	}
+	
+	private void verCategorias(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		//List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
+
+		//request.setAttribute("movimientos", movimientos);
+
+		request.getRequestDispatcher("jsp/dashboard/categorias.jsp").forward(request, response);
 	}
 }

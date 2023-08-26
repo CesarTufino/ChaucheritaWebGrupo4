@@ -380,6 +380,19 @@
                     <!--Reportes -->
                   </a>
                 </li>
+                <li class="nav-item">
+	              <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=verCategorias">
+	                <i class="bi bi-folder"></i>
+	                Categoría
+	              </a>
+	            </li>
+	            <!-- Agregar cuenta como nuevo nav-item -->
+	            <li class="nav-item">
+	              <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=verCuentas">
+	                <i class="bi bi-credit-card"></i>
+	                Cuenta
+	              </a>
+	            </li>
               </ul>
 
               <hr class="my-3" />

@@ -15,11 +15,11 @@ import modelo.dto.CuentaTotalDTO;
 import modelo.entidades.Cuenta;
 import modelo.entidades.Movimiento;
 
-@WebServlet("/DashboardController")
-public class DashboardController extends HttpServlet {
+@WebServlet("/RegistroController")
+public class RegistroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public DashboardController() {
+	public RegistroController() {
 		super();
 	}
 
@@ -37,18 +37,15 @@ public class DashboardController extends HttpServlet {
 			throws ServletException, IOException {
 		String ruta = (request.getParameter("ruta") == null) ? "inicio" : request.getParameter("ruta");
 		switch (ruta) {
-		case "iniciar":
-			this.iniciar(request, response);
-			break;
-		case "ajustar":
-			this.ajustar(request, response);
+		case "registrar":
+			this.registrar(request, response);
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void iniciar(HttpServletRequest request, HttpServletResponse response)
+	private void registrar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		// int mes = 1;
@@ -58,14 +55,8 @@ public class DashboardController extends HttpServlet {
 		// DAOFactory.getFactory().getCuentaDAO().getAll();
 
 		// request.setAttribute("movimientos", movimientos);
-		request.getRequestDispatcher("jsp/dashboard/dashboard.jsp").forward(request, response);
+		request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
 	}
 
-	private void ajustar(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		// request.setAttribute("movimientos", movimientos);
-		request.getRequestDispatcher("jsp/dashboard/ajustar-saldo.jsp").forward(request, response);
-	}
 
 }

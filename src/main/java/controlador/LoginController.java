@@ -36,6 +36,9 @@ public class LoginController extends HttpServlet {
 		case "ingresar":
 			this.ingresar(request, response);
 			break;
+		case "registrar":
+			this.registrar(request, response);
+			break;
 		case "salir":
 			//this.salir(request, response);
 			break;
@@ -47,7 +50,7 @@ public class LoginController extends HttpServlet {
 	}
 	
 	private void iniciar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1.- Obtener datos que me envían en la solicitud
+		// 1.- Obtener datos que me envï¿½an en la solicitud
 
 		// 2.- Llamo al Modelo para obtener datos
 
@@ -76,6 +79,11 @@ public class LoginController extends HttpServlet {
 			// Redireccionar a la vista
 			// request.getRequestDispatcher("jsp/error.jsp").forward(request, response);
 		}
+	}
+	
+	private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("jsp/registro.jsp").forward(request, response);
+
 	}
 	
 
