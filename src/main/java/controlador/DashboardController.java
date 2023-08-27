@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.dao.DAOFactory;
 import modelo.dto.CategoriaTotalDTO;
 import modelo.dto.CuentaTotalDTO;
+import modelo.entidades.Cuenta;
 
 @WebServlet("/DashboardController")
 public class DashboardController extends HttpServlet {
@@ -53,10 +54,11 @@ public class DashboardController extends HttpServlet {
         
         // Quitar CuentaDTO y Usar Cuenta, cuanta.total
 		List<CategoriaTotalDTO> categoriasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCategorias(mes);
-		List<CuentaTotalDTO> cuentasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCuentas();
-
+		//List<CuentaTotalDTO> cuentaTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCuentas();
+		List<Cuenta> cuentaTotal = DAOFactory.getFactory().getCuentaDAO().getAll();
+		
 		request.setAttribute("categoriasTotalDTO", categoriasTotalDTO);
-		request.setAttribute("cuentasTotalDTO", cuentasTotalDTO);
+		request.setAttribute("cuentasTotalDTO", cuentaTotal);
 		request.getRequestDispatcher("jsp/dashboard/dashboard.jsp").forward(request, response);
 	}
 

@@ -3,46 +3,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../../templates/header.jsp" />
+
 <div class="container">
-	<h1 class="heading">Registro de Ingreso</h1>
-	<form action="MovimientoController?ruta=registrarIngreso" method="post">
-		<div class="form-row">
-			<div class="form-group">
-				<label for="cuenta">Cuenta:</label> <select
-					id="cuenta" name="cuenta">
-					<c:forEach items="${cuentas}" var="cuenta">
-						<option value="${cuenta.id}">${cuenta.nombre}</option>
-					</c:forEach>
-				</select>
-			</div>
-			<div class="form-group">
-				<label for="categoria">Categoría:</label> <select
-					id="categoria" name="categoria">
-					<c:forEach items="${categoriasIngreso}" var="categoria">
-						<option value="${categoria.id}">${categoria.nombre}</option>
-					</c:forEach>
-				</select>
-			</div>
-			<div class="form-group">
-				<label for="concepto">Concepto:</label> <input type="text"
-					id="concepto" name="concepto">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="form-group">
-				<label for="fecha">Fecha:</label> <input type="date" id="fecha"
-					name="fecha">
-			</div>
-			<div class="form-group">
-				<label for="valor">Valor:</label> <input type="number" id="valor"
-					name="valor" step="0.01">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="form-group" style="flex-basis: 100%;">
-				<input type="submit" value="Registrar Ingreso">
-			</div>
-		</div>
-	</form>
+    <h1 class="heading">Registro de Ingreso</h1>
+    <form action="MovimientoController?ruta=registrarIngreso" method="post">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="cuenta" class="form-label">Cuenta:</label>
+                <select id="cuenta" name="cuenta" class="form-select">
+                    <c:forEach items="${cuentas}" var="cuenta">
+                        <option value="${cuenta.id}">${cuenta.nombre}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="categoria" class="form-label">Categoría:</label>
+                <select id="categoria" name="categoria" class="form-select">
+                    <c:forEach items="${categoriasIngreso}" var="categoria">
+                        <option value="${categoria.id}">${categoria.nombre}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="concepto" class="form-label">Concepto:</label>
+                <input type="text" id="concepto" name="concepto" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="fecha" class="form-label">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" class="form-control">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="valor" class="form-label">Valor:</label>
+                <input type="number" id="valor" name="valor" step="0.01" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Registrar Ingreso</button>
+            </div>
+        </div>
+    </form>
 </div>
+
 <jsp:include page="../../templates/footer.jsp" />
