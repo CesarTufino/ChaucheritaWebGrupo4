@@ -4,20 +4,19 @@
 
 <jsp:include page="../../templates/header.jsp" />
 
-<div class="btn-group">
-
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=1"><button class="btn btn-secondary">Enero</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=2"><button class="btn btn-secondary">Febrero</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=3"><button class="btn btn-secondary">Marzo</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=4"><button class="btn btn-secondary">Abril</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=5"><button class="btn btn-secondary">Mayo</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=6"><button class="btn btn-secondary">Junio</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=7"><button class="btn btn-secondary">Julio</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=8"><button class="btn btn-secondary">Agosto</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=9"><button class="btn btn-secondary">Septiembre</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=10"><button class="btn btn-secondary">Octubre</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=11"><button class="btn btn-secondary">Noviembre</button></a>
-	<a href="MovimientoController?ruta=vizualizarPorMes&mes=12"><button class="btn btn-secondary">Diciembre</button></a>
+<div class="btn-group d-flex flex-wrap justify-content-center">
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=1" class="btn btn-secondary">Enero</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=2" class="btn btn-secondary">Febrero</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=3" class="btn btn-secondary">Marzo</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=4" class="btn btn-secondary">Abril</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=5" class="btn btn-secondary">Mayo</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=6" class="btn btn-secondary">Junio</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=7" class="btn btn-secondary">Julio</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=8" class="btn btn-secondary">Agosto</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=9" class="btn btn-secondary">Septiembre</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=10" class="btn btn-secondary">Octubre</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=11" class="btn btn-secondary">Noviembre</a>
+    <a href="MovimientoController?ruta=vizualizarPorMes&mes=12" class="btn btn-secondary">Diciembre</a>
 </div>
 
 <div
@@ -25,6 +24,8 @@
 	<h1 class="h2">Movimientos</h1>
 </div>
 <div class="table-responsive small">
+<a href="MovimientoController?ruta=vizualizarTodo" class="btn btn-primary">Ver
+			Todos los Movimientos</a>
 	<table class="table table-striped table-sm">
 		<thead>
 			<tr>

@@ -115,8 +115,10 @@ public class MovimientoController extends HttpServlet {
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 
 		//Poner dinero a la cuenta
+		cuenta.setTotal(cuenta.getTotal()+valor);
 		
 		// Update a la cuenta
+		DAOFactory.getFactory().getCuentaDAO().update(cuenta);
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
@@ -159,10 +161,12 @@ public class MovimientoController extends HttpServlet {
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 		
 		// Verificar que la cuenta tenga el total suficiente
-		
-		//Quitar dinero a la cuenta
+		if (valor <= cuenta.getTotal()) {
+			cuenta.setTotal(cuenta.getTotal()-valor);
+		}
 		
 		// Update a la cuenta
+		DAOFactory.getFactory().getCuentaDAO().update(cuenta);
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
@@ -184,33 +188,45 @@ public class MovimientoController extends HttpServlet {
 			throws ServletException, IOException {
 
 		
-		// List<Movimiento> movimientos =
+		 List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
+		 List<Cuenta> cuentasOrigen = DAOFactory.getFactory().getCuentaDAO().getAll();
+		 List<Cuenta> cuentasDestino = DAOFactory.getFactory().getCuentaDAO().getAll();
+		 List<Categoria> listaCategorias = DAOFactory.getFactory().getCategoriaDAO().getAll();
 		// DAOFactory.getFactory().getMovimientoDAO().getAll();
 
-		// request.setAttribute("movimientos", movimientos);
-
+		request.setAttribute("cuenta_origen", cuentasOrigen);
+		request.setAttribute("cuenta_destino", cuentasDestino);
+		request.setAttribute("listaCategorias", listaCategorias);
 		request.getRequestDispatcher("jsp/dashboard/transferencia.jsp").forward(request, response);
 	}
 
 	private void registarTransferencia(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int idCuenta = Integer.parseInt(request.getParameter("cuenta"));
+		int idCuentaOrg = Integer.parseInt(request.getParameter("cuenta_origen"));
 		//Otra cuenta
+		int idCuentaDest = Integer.parseInt(request.getParameter("cuenta_destino"));
+		
 		int idCategoria = Integer.parseInt(request.getParameter("categoria"));
+		
 		String concepto = request.getParameter("concepto");
 		String strFecha = request.getParameter("fecha");
 		double valor = Double.parseDouble(request.getParameter("valor"));
-
-		Cuenta cuenta = DAOFactory.getFactory().getCuentaDAO().getById(idCuenta);
+		
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
+		Cuenta cuentaOrg = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaOrg);
+		Cuenta cuentaDest = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaDest);
 		
 		// Verificar que la cuenta origen tenga el total suficiente
-		
-		//Quitar dinero a la cuenta
-		//Poner
-		
+		if (valor <= cuentaOrg.getTotal()) {
+			cuentaOrg.setTotal(cuentaOrg.getTotal()-valor);
+			cuentaDest.setTotal(cuentaDest.getTotal()+valor);
+		}
+
 		// Update a las cuentas
+		DAOFactory.getFactory().getCuentaDAO().update(cuentaOrg);
+		DAOFactory.getFactory().getCuentaDAO().update(cuentaDest);
+		
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
@@ -219,12 +235,13 @@ public class MovimientoController extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
 		// Reigstrar los dos movimientos
 		
-		Movimiento movimiento = new Movimiento(concepto, -valor, fecha, categoria, cuenta);
+		Movimiento movimientoOrg = new Movimiento(concepto, -valor, fecha, categoria, cuentaOrg);
+		Movimiento movimientoDest = new Movimiento(concepto, -valor, fecha, categoria, cuentaDest);
 
-		DAOFactory.getFactory().getMovimientoDAO().create(movimiento);
+		DAOFactory.getFactory().getMovimientoDAO().create(movimientoOrg);
+		DAOFactory.getFactory().getMovimientoDAO().create(movimientoDest);
 		
 
 		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
