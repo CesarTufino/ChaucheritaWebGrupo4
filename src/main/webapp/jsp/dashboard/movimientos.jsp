@@ -5,6 +5,7 @@
 <jsp:include page="../../templates/header.jsp" />
 
 <div class="btn-group">
+
 	<a href="MovimientoController?ruta=vizualizarPorMes&mes=1"><button class="btn btn-secondary">Enero</button></a>
 	<a href="MovimientoController?ruta=vizualizarPorMes&mes=2"><button class="btn btn-secondary">Febrero</button></a>
 	<a href="MovimientoController?ruta=vizualizarPorMes&mes=3"><button class="btn btn-secondary">Marzo</button></a>

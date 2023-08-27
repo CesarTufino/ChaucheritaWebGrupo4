@@ -1,5 +1,8 @@
 package modelo.entidades;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Tipo {
 	INGRESO(0,"Ingreso"),
 	EGRESO(1,"Egreso"),
@@ -28,5 +31,12 @@ public enum Tipo {
 		}
 		return null;
 	}
+	
+	public static List<Tipo> getAll() {
+		List<Tipo> tipos = Arrays.asList(values());
+		return tipos;
+	}
+	
+	
 
 }

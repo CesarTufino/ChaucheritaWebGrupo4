@@ -45,12 +45,6 @@ public class MovimientoController extends HttpServlet {
 		case "vizualizarPorMes":
 			this.vizualizarPorMes(request, response);
 			break;
-		case "vizualizarPorCuenta":
-			this.vizualizarPorCuenta(request, response);
-			break;
-		case "vizualizarPorCuentaPorMes":
-			this.vizualizarPorCuentaPorMes(request, response);
-			break;
 		case "iniciarIngreso":
 			this.iniciarIngreso(request, response);
 			break;
@@ -65,6 +59,9 @@ public class MovimientoController extends HttpServlet {
 			break;
 		case "iniciarTransferencia":
 			this.iniciarTransferencia(request, response);
+			break;
+		case "registrarTransferencia":
+			this.registarTransferencia(request, response);
 			break;
 		default:
 			break;
@@ -87,26 +84,6 @@ public class MovimientoController extends HttpServlet {
 		int mes = Integer.parseInt(request.getParameter("mes"));
 
 		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAllByMes(mes);
-		request.setAttribute("movimientos", movimientos);
-
-		request.getRequestDispatcher("jsp/dashboard/movimientos.jsp").forward(request, response);
-	}
-
-	private void vizualizarPorCuenta(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
-
-		request.setAttribute("movimientos", movimientos);
-
-		request.getRequestDispatcher("jsp/dashboard/movimientos.jsp").forward(request, response);
-	}
-
-	private void vizualizarPorCuentaPorMes(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
-
 		request.setAttribute("movimientos", movimientos);
 
 		request.getRequestDispatcher("jsp/dashboard/movimientos.jsp").forward(request, response);
@@ -137,6 +114,10 @@ public class MovimientoController extends HttpServlet {
 		Cuenta cuenta = DAOFactory.getFactory().getCuentaDAO().getById(idCuenta);
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 
+		//Poner dinero a la cuenta
+		
+		// Update a la cuenta
+		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
 		try {
@@ -177,6 +158,12 @@ public class MovimientoController extends HttpServlet {
 		Cuenta cuenta = DAOFactory.getFactory().getCuentaDAO().getById(idCuenta);
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 		
+		// Verificar que la cuenta tenga el total suficiente
+		
+		//Quitar dinero a la cuenta
+		
+		// Update a la cuenta
+		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
 		try {
@@ -196,6 +183,7 @@ public class MovimientoController extends HttpServlet {
 	private void iniciarTransferencia(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
 		// List<Movimiento> movimientos =
 		// DAOFactory.getFactory().getMovimientoDAO().getAll();
 
@@ -204,4 +192,42 @@ public class MovimientoController extends HttpServlet {
 		request.getRequestDispatcher("jsp/dashboard/transferencia.jsp").forward(request, response);
 	}
 
+	private void registarTransferencia(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int idCuenta = Integer.parseInt(request.getParameter("cuenta"));
+		//Otra cuenta
+		int idCategoria = Integer.parseInt(request.getParameter("categoria"));
+		String concepto = request.getParameter("concepto");
+		String strFecha = request.getParameter("fecha");
+		double valor = Double.parseDouble(request.getParameter("valor"));
+
+		Cuenta cuenta = DAOFactory.getFactory().getCuentaDAO().getById(idCuenta);
+		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
+		
+		// Verificar que la cuenta origen tenga el total suficiente
+		
+		//Quitar dinero a la cuenta
+		//Poner
+		
+		// Update a las cuentas
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date fecha = new Date();
+		try {
+			fecha = dateFormat.parse(strFecha);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		// Reigstrar los dos movimientos
+		
+		Movimiento movimiento = new Movimiento(concepto, -valor, fecha, categoria, cuenta);
+
+		DAOFactory.getFactory().getMovimientoDAO().create(movimiento);
+		
+
+		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
+	}
+	
 }

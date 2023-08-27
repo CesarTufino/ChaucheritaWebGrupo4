@@ -77,10 +77,8 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect("DashboardController?ruta=iniciar");
 		} else {
 			String mensaje = "Ingresaste mal tu usuario y clave";
-			// Enviar datos a la vista
 			request.setAttribute("mensaje", mensaje);
-			// Redireccionar a la vista
-			// request.getRequestDispatcher("jsp/error.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/error.jsp").forward(request, response);
 		}
 	}
 	

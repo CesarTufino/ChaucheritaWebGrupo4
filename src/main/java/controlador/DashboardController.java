@@ -50,8 +50,8 @@ public class DashboardController extends HttpServlet {
 		LocalDate fecha = LocalDate.now();
         int mesActual = fecha.getMonthValue();
         int mes = (request.getParameter("mes") == null) ? mesActual : Integer.parseInt(request.getParameter("mes"));
-       
         
+        // Quitar CuentaDTO y Usar Cuenta, cuanta.total
 		List<CategoriaTotalDTO> categoriasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCategorias(mes);
 		List<CuentaTotalDTO> cuentasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCuentas();
 
