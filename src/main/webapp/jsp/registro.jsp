@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -45,8 +45,8 @@
                 <input id="lastName" name="lastName" type="text" class="form-control" placeholder="Ingrese su apellido" required />
             </div>
             <div class="input-group my-3">
-                <label for="password" class="input-group-text"><i class="bi bi-key-fill me-2"></i>ContraseÃ±a</label>
-                <input id="password" name="password" type="password" class="form-control" placeholder="Ingrese su contraseÃ±a" required />
+                <label for="password" class="input-group-text"><i class="bi bi-key-fill me-2"></i>Contraseña</label>
+                <input id="password" name="password" type="password" class="form-control" placeholder="Ingrese su contraseña" required />
             </div>
             <div class="d-grid gap-2">
                 <button class="btn btn-primary" type="submit">Registrarse</button>

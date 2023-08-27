@@ -7,17 +7,17 @@ public class CategoriaTotalDTO implements Serializable {
 	private int id;
 	private String nombre;
 	private int tipo;
+	private int propietario;
 	private double total;
 
 	public CategoriaTotalDTO() {
-
 	}
 
-	public CategoriaTotalDTO(int id, String nombre, int tipo, double total) {
-		super();
+	public CategoriaTotalDTO(int id, String nombre, int tipo, int propietario, double total) {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
+		this.propietario = propietario;
 		this.total = total;
 	}
 
@@ -53,4 +53,12 @@ public class CategoriaTotalDTO implements Serializable {
 		this.tipo = tipo;
 	}
 
+	public int getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(int propietario) {
+		this.propietario = propietario;
+	}
+	
 }

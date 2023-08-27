@@ -1,7 +1,6 @@
 package modelo.dto;
 
 import java.io.Serializable;
-import modelo.entidades.Usuario;
 
 public class CuentaTotalDTO implements Serializable {
 
@@ -16,7 +15,6 @@ public class CuentaTotalDTO implements Serializable {
 	}
 
 	public CuentaTotalDTO(int id, String nombre, int propietario, double total) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.propietario = propietario;

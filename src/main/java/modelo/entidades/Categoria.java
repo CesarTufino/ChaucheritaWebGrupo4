@@ -2,11 +2,14 @@ package modelo.entidades;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,17 +24,20 @@ public class Categoria implements Serializable {
 	private String nombre;
 	@Column(name = "tipo")
 	private Tipo tipo;
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "propietario")
+	private Persona propietario;
 	
 	public Categoria() {
 
 	}
 
-	public Categoria(int id, String nombre, Tipo tipo) {
-		super();
-		this.id = id;
+	public Categoria(String nombre, Tipo tipo, Persona propietario) {
 		this.nombre = nombre;
 		this.tipo = tipo;
+		this.propietario = propietario;
 	}
+
 
 	public int getId() {
 		return id;
@@ -65,5 +71,14 @@ public class Categoria implements Serializable {
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
+
+	public Persona getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Persona propietario) {
+		this.propietario = propietario;
+	}
+	
 
 }

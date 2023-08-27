@@ -5,15 +5,22 @@
 <jsp:include page="../../templates/header.jsp" />
 <div class="container">
 	<h1 class="heading">Registro de Ingreso</h1>
-	<form action="procesar_ingreso.php" method="post">
+	<form action="MovimientoController?ruta=registrarIngreso" method="post">
 		<div class="form-row">
 			<div class="form-group">
-				<label for="cuenta_origen">Cuenta Origen:</label> <select
-					id="cuenta_origen" name="cuenta_origen">
-					<option value="Nómina">Nómina</option>
-					<option value="OtraCuenta1">Otra Cuenta 1</option>
-					<option value="OtraCuenta2">Otra Cuenta 2</option>
-					<!-- Agrega más opciones según tus necesidades -->
+				<label for="cuenta">Cuenta:</label> <select
+					id="cuenta" name="cuenta">
+					<c:forEach items="${cuentas}" var="cuenta">
+						<option value="${cuenta.id}">${cuenta.nombre}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="categoria">Categoría:</label> <select
+					id="categoria" name="categoria">
+					<c:forEach items="${categoriasIngreso}" var="categoria">
+						<option value="${categoria.id}">${categoria.nombre}</option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="form-group">

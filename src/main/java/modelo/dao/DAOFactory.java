@@ -9,7 +9,7 @@ public abstract class DAOFactory {
 		return factory;
 	}
 	
-	public abstract UsuarioDAO getUsuarioDAO();
+	public abstract PersonaDAO getPersonaDAO();
 	
 	public abstract CuentaDAO getCuentaDAO();
 	

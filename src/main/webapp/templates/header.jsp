@@ -343,7 +343,7 @@
                   <a
                     class="nav-link d-flex align-items-center gap-2 active"
                     aria-current="page"
-                    href="#">
+                    href="DashboardController?ruta=iniciar">
                     <i class="bi bi-house-fill"></i>
                     Inicio
                   </a>
@@ -373,22 +373,15 @@
                     Tranferencia
                   </a>
                 </li>
-
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#">
-                    <i class="bi bi-wallet"></i>
-                    <!--Reportes -->
-                  </a>
-                </li>
-                <li class="nav-item">
-	              <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=verCategorias">
+	              <a class="nav-link d-flex align-items-center gap-2" href="CategoriaController?ruta=verCategorias">
 	                <i class="bi bi-folder"></i>
 	                Categoría
 	              </a>
 	            </li>
 	            <!-- Agregar cuenta como nuevo nav-item -->
 	            <li class="nav-item">
-	              <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=verCuentas">
+	              <a class="nav-link d-flex align-items-center gap-2" href="CuentaController?ruta=verCuentas">
 	                <i class="bi bi-credit-card"></i>
 	                Cuenta
 	              </a>
@@ -399,7 +392,7 @@
 
               <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#">
+                  <a class="nav-link d-flex align-items-center gap-2" href="LoginController?ruta=salir">
                     <svg class="bi"><use xlink:href="#door-closed" /></svg>
                     Sign out
                   </a>

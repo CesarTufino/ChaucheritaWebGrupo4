@@ -20,5 +20,13 @@ public enum Tipo {
 	public String getDescripcion() {
 		return descripcion;
 	}
+	
+	public static Tipo getById(int id) {
+		for (Tipo tipo : values()) {
+			if (tipo.getId() == id)
+				return tipo;
+		}
+		return null;
+	}
 
 }

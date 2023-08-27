@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.dao.DAOFactory;
 import modelo.dto.CategoriaTotalDTO;
 import modelo.dto.CuentaTotalDTO;
-import modelo.entidades.Cuenta;
-import modelo.entidades.Movimiento;
 
 @WebServlet("/DashboardController")
 public class DashboardController extends HttpServlet {
@@ -40,9 +39,6 @@ public class DashboardController extends HttpServlet {
 		case "iniciar":
 			this.iniciar(request, response);
 			break;
-		case "ajustar":
-			this.ajustar(request, response);
-			break;
 		default:
 			break;
 		}
@@ -50,22 +46,18 @@ public class DashboardController extends HttpServlet {
 
 	private void iniciar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		LocalDate fecha = LocalDate.now();
+        int mesActual = fecha.getMonthValue();
+        int mes = (request.getParameter("mes") == null) ? mesActual : Integer.parseInt(request.getParameter("mes"));
+       
+        
+		List<CategoriaTotalDTO> categoriasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCategorias(mes);
+		List<CuentaTotalDTO> cuentasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCuentas();
 
-		// int mes = 1;
-		// List<CategoriaTotalDTO> categoriasTotalDTO =
-		// DAOFactory.getFactory().getMovimientoDAO().getTotalByCategoria(mes);
-		// List<Cuenta> cuentaTotalDTO =
-		// DAOFactory.getFactory().getCuentaDAO().getAll();
-
-		// request.setAttribute("movimientos", movimientos);
+		request.setAttribute("categoriasTotalDTO", categoriasTotalDTO);
+		request.setAttribute("cuentasTotalDTO", cuentasTotalDTO);
 		request.getRequestDispatcher("jsp/dashboard/dashboard.jsp").forward(request, response);
-	}
-
-	private void ajustar(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		// request.setAttribute("movimientos", movimientos);
-		request.getRequestDispatcher("jsp/dashboard/ajustar-saldo.jsp").forward(request, response);
 	}
 
 }

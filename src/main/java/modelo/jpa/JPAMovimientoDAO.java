@@ -9,7 +9,6 @@ import modelo.dao.MovimientoDAO;
 import modelo.dto.CategoriaTotalDTO;
 import modelo.dto.CuentaTotalDTO;
 import modelo.entidades.Movimiento;
-import modelo.entidades.Tipo;
 
 public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> implements MovimientoDAO{
 
@@ -19,7 +18,7 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 
 	@Override
 	public List<CategoriaTotalDTO> getTotalPorCategorias(int mes) {
-		String sql = "Select c.id, nombre, tipo, sum(valor) as 'total' from movimiento m JOIN categoria c on m.categoria = c.id where month(fecha) = ? GROUP BY c.id, nombre, tipo;";
+		String sql = "Select c.id, nombre, tipo, propietario, sum(valor) as 'total' from movimiento m JOIN categoria c on m.categoria = c.id where month(fecha) = ? GROUP BY c.id, nombre, tipo;";
 		Query query = em.createNativeQuery(sql);
 		query.setParameter(1, mes);
 		List<Object[]> resultados = query.getResultList();
@@ -30,17 +29,17 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 		    dto.setId((int) resultado[0]);
 		    dto.setNombre((String) resultado[1]);
 		    dto.setTipo((int) resultado[2]);
-		    dto.setTotal((double) resultado[3]);
+		    dto.setPropietario((int) resultado[3]);
+		    dto.setTotal((double) resultado[4]);
 		    categoriasTotalDTO.add(dto);
 		}
 		return categoriasTotalDTO;
 	}
 
 	@Override
-	public List<CuentaTotalDTO> getTotalPorCuenta() {
+	public List<CuentaTotalDTO> getTotalPorCuentas() {
 		String sql = "Select c.id, nombre, propietario, sum(valor) as 'total' from movimiento m JOIN cuenta c on m.cuenta = c.ID GROUP BY c.id, nombre, propietario;";
 		Query query = em.createNativeQuery(sql);
-		
 		List<CuentaTotalDTO> cuentasTotalesDTO = new ArrayList<>();
 		List<Object[]> resultados = query.getResultList();
 	    for (Object[] resultado : resultados) {
@@ -81,5 +80,6 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 		
 		return (List<Movimiento>) query.getResultList();
 	}
+
 
 }

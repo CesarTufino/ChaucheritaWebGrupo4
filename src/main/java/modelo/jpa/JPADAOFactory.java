@@ -4,13 +4,13 @@ import modelo.dao.CategoriaDAO;
 import modelo.dao.CuentaDAO;
 import modelo.dao.DAOFactory;
 import modelo.dao.MovimientoDAO;
-import modelo.dao.UsuarioDAO;
+import modelo.dao.PersonaDAO;
 
 public class JPADAOFactory extends DAOFactory{
 
 	@Override
-	public UsuarioDAO getUsuarioDAO() {
-		return new JPAUsuarioDAO();
+	public PersonaDAO getPersonaDAO() {
+		return new JPAPersonaDAO();
 	}
 
 	@Override

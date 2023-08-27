@@ -1,7 +1,7 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,14 +30,14 @@ public class Movimiento implements Serializable {
 	private double valor;
 	@Column(name = "fecha")
 	@Temporal(TemporalType.DATE)
-	private Calendar fecha;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	private Date fecha;
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "categoria")
 	private Categoria categoria;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "cuenta")
 	private Cuenta cuenta;
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "relacion")
 	private Movimiento relacion;
 
@@ -46,9 +46,8 @@ public class Movimiento implements Serializable {
 
 	}
 	
-	public Movimiento(int id, String concepto, double valor, Calendar fecha, Categoria categoria,
+	public Movimiento(String concepto, double valor, Date fecha, Categoria categoria,
 			Cuenta cuenta) {
-		this.id = id;
 		this.concepto = concepto;
 		this.valor = valor;
 		this.fecha = fecha;
@@ -56,10 +55,8 @@ public class Movimiento implements Serializable {
 		this.cuenta = cuenta;
 	}
 
-	public Movimiento(int id, String concepto, double valor, Calendar fecha, Categoria categoria, Cuenta cuenta,
+	public Movimiento(String concepto, double valor, Date fecha, Categoria categoria, Cuenta cuenta,
 			Movimiento relacion) {
-		super();
-		this.id = id;
 		this.concepto = concepto;
 		this.valor = valor;
 		this.fecha = fecha;
@@ -100,11 +97,11 @@ public class Movimiento implements Serializable {
 		this.concepto = concepto;
 	}
 
-	public Calendar getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Calendar fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

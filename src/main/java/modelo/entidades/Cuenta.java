@@ -22,19 +22,20 @@ public class Cuenta implements Serializable {
 	private int id;
 	@Column(name = "nombre")
 	private String nombre;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "propietario")
-	private Usuario propietario;
+	private Persona propietario;
+	@Column(name = "total")
+	private double total;
 
 	public Cuenta() {
 
 	}
 
-	public Cuenta(int id, String nombre, Usuario propietario) {
-		super();
-		this.id = id;
+	public Cuenta(String nombre, Persona propietario, double total) {
 		this.nombre = nombre;
 		this.propietario = propietario;
+		this.total = total;
 	}
 
 	public int getId() {
@@ -53,12 +54,20 @@ public class Cuenta implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Usuario getPropietario() {
+	public Persona getPropietario() {
 		return propietario;
 	}
 
-	public void setPropietario(Usuario propietario) {
+	public void setPropietario(Persona propietario) {
 		this.propietario = propietario;
 	}
 
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+	
 }

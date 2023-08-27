@@ -8,24 +8,6 @@
     <h2>Dashboard</h2>
 </div>
 
-<!-- Agregar los botones para cambiar entre meses -->
-<div class="btn-group">
-    <button class="btn btn-secondary">Enero</button>
-    <button class="btn btn-secondary">Febrero</button>
-    <button class="btn btn-secondary">Marzo</button>
-    <button class="btn btn-secondary">Abril</button>
-    <button class="btn btn-secondary">Mayo</button>
-    <button class="btn btn-secondary">Junio</button>
-    <button class="btn btn-secondary">Julio</button>
-    <button class="btn btn-secondary">Agosto</button>
-    <button class="btn btn-secondary">Septiembre</button>
-    <button class="btn btn-secondary">Octubre</button>
-    <button class="btn btn-secondary">Noviembre</button>
-    <button class="btn btn-secondary">Diciembre</button>
-    <!-- Agregar más botones para otros meses -->
-</div>
-
-
 <h2>Categorías</h2>
 
 <div class="table-responsive">
@@ -36,10 +18,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Categoría 1</td>
-            </tr>
-            <!-- Agregar más filas de categorías aquí -->
+            <c:forEach items="${categorias}" var="categoria">
+				<tr>
+					<td>${categoria.nombre}</td>
+					<td>${categoria.tipo.descripcion}</td>
+				</tr>
+			</c:forEach>
         </tbody>
     </table>
 </div>

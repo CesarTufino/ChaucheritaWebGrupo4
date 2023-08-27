@@ -10,26 +10,30 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable{
+@Table(name = "persona")
+public class Persona implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "usuario")
+	private String usuario;
 	@Column(name = "nombre")
 	private String nombre;
+	@Column(name = "apellido")
+	private String apellido;
 	@Column(name = "clave")
 	private String clave;
 	
-	public Usuario() {
+	public Persona() {
 		
 	}
-	
-	public Usuario(int id, String nombre, String clave) {
-		super();
-		this.id = id;
+
+	public Persona(String usuario, String nombre, String apellido, String clave) {
+		this.usuario = usuario;
 		this.nombre = nombre;
+		this.apellido = apellido;
 		this.clave = clave;
 	}
 
@@ -41,12 +45,28 @@ public class Usuario implements Serializable{
 		this.id = id;
 	}
 
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getClave() {
@@ -56,6 +76,9 @@ public class Usuario implements Serializable{
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

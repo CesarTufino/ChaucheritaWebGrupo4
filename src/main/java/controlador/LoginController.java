@@ -1,6 +1,11 @@
 package controlador;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import modelo.dao.DAOFactory;
-import modelo.entidades.Usuario;
+import modelo.entidades.Persona;
+import modelo.jpa.JPAMovimientoDAO;
 
 @WebServlet("/LoginController")
 public class LoginController extends HttpServlet {
@@ -40,7 +46,7 @@ public class LoginController extends HttpServlet {
 			this.registrar(request, response);
 			break;
 		case "salir":
-			//this.salir(request, response);
+			this.salir(request, response);
 			break;
 		case "error":
 			break;
@@ -50,32 +56,29 @@ public class LoginController extends HttpServlet {
 	}
 	
 	private void iniciar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1.- Obtener datos que me envï¿½an en la solicitud
+		// 1.- Obtener datos que me envían en la solicitud
 
 		// 2.- Llamo al Modelo para obtener datos
-
+		
 		// 3.- Llamo a la vista
 		request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
 	}
 	
 	private void ingresar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String clave = request.getParameter("pswd");
-		
-		System.out.println(username + clave);
+		String usuario = request.getParameter("user");
+		String clave = request.getParameter("password");
 
-		Usuario usuarioAtenticado = DAOFactory.getFactory().getUsuarioDAO().autorizar(username, clave);
+		Persona personaAtenticada = DAOFactory.getFactory().getPersonaDAO().autorizar(usuario, clave);
 
-		if (usuarioAtenticado != null) {
+		if (personaAtenticada != null) {
 			// Crear la sesion
 			HttpSession session = request.getSession();
-			session.setAttribute("usuarioLogeado", usuarioAtenticado);
-			
+			session.setAttribute("personaAtenticada", personaAtenticada);
 			response.sendRedirect("DashboardController?ruta=iniciar");
 		} else {
 			String mensaje = "Ingresaste mal tu usuario y clave";
 			// Enviar datos a la vista
-			// request.setAttribute("mensaje", mensaje);
+			request.setAttribute("mensaje", mensaje);
 			// Redireccionar a la vista
 			// request.getRequestDispatcher("jsp/error.jsp").forward(request, response);
 		}
@@ -83,8 +86,11 @@ public class LoginController extends HttpServlet {
 	
 	private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("jsp/registro.jsp").forward(request, response);
-
 	}
 	
-
+	private void salir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().invalidate();
+		request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+	}
+	
 }

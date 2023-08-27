@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
@@ -33,17 +32,17 @@
 		<h1 class="d-block text-center">Inicio de sesión</h1>
 		<form action="LoginController?ruta=ingresar" method="POST" class="w-50 mx-auto shadow my-3 p-3">
 			<div class="input-group my-3">
-				<label for="username" class="input-group-text"><i
-					class="bi bi-person-fill me-2"></i>Usuario</label> <input id="username"
-					name="username" type="text" class="form-control"
-					placeholder="Ingrese su usuario" aria-label="Username"
+				<label for="usuario" class="input-group-text"><i
+					class="bi bi-person-fill me-2"></i>Usuario</label> <input id="user"
+					name="user" type="text" class="form-control"
+					placeholder="Ingrese su usuario" aria-label="User"
 					aria-describedby="basic-addon1" />
 			</div>
 			<div class="input-group my-3">
-				<label for="pswd" class="input-group-text"><i
-					class="bi bi-key-fill me-2"></i>Contraseña</label> <input id="pswd"
-					name="pswd" type="password" class="form-control"
-					placeholder="Ingrese su contraseña" aria-label="Username"
+				<label for="clave" class="input-group-text"><i
+					class="bi bi-key-fill me-2"></i>Contraseña</label> <input id="password"
+					name="password" type="password" class="form-control"
+					placeholder="Ingrese su contraseña" aria-label="Password"
 					aria-describedby="basic-addon1" />
 			</div>
 			<div class="d-grid gap-2">
