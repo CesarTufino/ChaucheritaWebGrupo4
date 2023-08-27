@@ -15,9 +15,12 @@ public class MovimientoDTO implements Serializable {
 	private Categoria categoria;
 	private Cuenta cuenta;
 	private Movimiento relacion;
+	private String fechaFormateada;
 	
+	
+
 	public MovimientoDTO(int id, String concepto, double valor, Date fecha, Categoria categoria, Cuenta cuenta,
-			Movimiento relacion) {
+			Movimiento relacion, String fechaFormateada) {
 		super();
 		this.id = id;
 		this.concepto = concepto;
@@ -26,6 +29,7 @@ public class MovimientoDTO implements Serializable {
 		this.categoria = categoria;
 		this.cuenta = cuenta;
 		this.relacion = relacion;
+		this.fechaFormateada = fechaFormateada;
 	}
 
 	public int getId() {
@@ -83,9 +87,14 @@ public class MovimientoDTO implements Serializable {
 	public void setRelacion(Movimiento relacion) {
 		this.relacion = relacion;
 	}
-	
-	
-	
-	
+
+	public String getFechaFormateada() {
+		return fechaFormateada;
+	}
+
+	public void setFechaFormateada(String fechaFormateada) {
+		this.fechaFormateada = fechaFormateada;
+	}
+		
 
 }
