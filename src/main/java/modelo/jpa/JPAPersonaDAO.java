@@ -1,5 +1,6 @@
 package modelo.jpa;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import modelo.dao.PersonaDAO;
@@ -13,12 +14,17 @@ public class JPAPersonaDAO extends JPAGenericDAO<Persona, Integer> implements Pe
 
 	@Override
 	public Persona autorizar(String usuario, String clave) {
+		Persona usuarioAutorizado = null;
 		String sentecia = "SELECT p FROM Persona p WHERE p.usuario= :usuario AND p.clave= :clave";
 		Query query = em.createQuery(sentecia);
 		query.setParameter("usuario", usuario);
 		query.setParameter("clave", clave);
 
-		Persona usuarioAutorizado = (Persona) query.getSingleResult();
+		try {
+			usuarioAutorizado = (Persona) query.getSingleResult();
+		} catch (NoResultException e) {
+			usuarioAutorizado = null;
+		}
 		return usuarioAutorizado;
 	}
 

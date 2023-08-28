@@ -73,7 +73,7 @@ public class LoginController extends HttpServlet {
 		} else {
 			String mensaje = "Ingresaste mal tu usuario y clave";
 			request.setAttribute("mensaje", mensaje);
-			request.getRequestDispatcher("jsp/error.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/dashboard/error.jsp").forward(request, response);
 		}
 	}
 	

@@ -30,7 +30,7 @@
             <div class="col-md-6 mb-3">
                 <label for="categoria" class="form-label">Categoría:</label>
                 <select id="categoria" name="categoria" class="form-select">
-                    <c:forEach items="${categorias}" var="categoria">
+                    <c:forEach items="${categoriasTransferencia}" var="categoria">
                         <option value="${categoria.id}">${categoria.nombre}</option>
                     </c:forEach>
                 </select>

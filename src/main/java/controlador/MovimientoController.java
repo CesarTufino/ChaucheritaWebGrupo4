@@ -137,12 +137,6 @@ public class MovimientoController extends HttpServlet {
 		Cuenta cuenta = DAOFactory.getFactory().getCuentaDAO().getById(idCuenta);
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 
-		// Poner dinero a la cuenta
-		cuenta.setTotal(cuenta.getTotal() + valor);
-
-		// Update a la cuenta
-		DAOFactory.getFactory().getCuentaDAO().update(cuenta);
-
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
 		try {
@@ -151,10 +145,12 @@ public class MovimientoController extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		cuenta.setTotal(cuenta.getTotal() + valor);
+		DAOFactory.getFactory().getCuentaDAO().update(cuenta);
+		
 		Movimiento movimiento = new Movimiento(concepto, valor, fecha, categoria, cuenta);
-
 		DAOFactory.getFactory().getMovimientoDAO().create(movimiento);
-
+		
 		response.sendRedirect("MovimientoController?ruta=iniciarIngreso");
 	}
 
@@ -187,14 +183,6 @@ public class MovimientoController extends HttpServlet {
 		Cuenta cuenta = DAOFactory.getFactory().getCuentaDAO().getById(idCuenta);
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 
-		// Verificar que la cuenta tenga el total suficiente
-		if (valor <= cuenta.getTotal()) {
-			cuenta.setTotal(cuenta.getTotal() - valor);
-		}
-
-		// Update a la cuenta
-		DAOFactory.getFactory().getCuentaDAO().update(cuenta);
-
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
 		try {
@@ -203,10 +191,19 @@ public class MovimientoController extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		if (valor > cuenta.getTotal()) {
+			String mensaje = "El valor del egreso es mayor a la cantidad existente en la cuenta seleccionada";
+			request.setAttribute("mensaje", mensaje);
+			request.getRequestDispatcher("jsp/dashboard/error.jsp").forward(request, response);
+		}
+		
+		cuenta.setTotal(cuenta.getTotal() - valor);
+		
+		DAOFactory.getFactory().getCuentaDAO().update(cuenta);
+		
 		Movimiento movimiento = new Movimiento(concepto, -valor, fecha, categoria, cuenta);
-
 		DAOFactory.getFactory().getMovimientoDAO().create(movimiento);
-
+		
 		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
 	}
 
@@ -218,11 +215,11 @@ public class MovimientoController extends HttpServlet {
 		
 		List<Cuenta> cuentasOrigen = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
 		List<Cuenta> cuentasDestino = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
-		List<Categoria> categorias = DAOFactory.getFactory().getCategoriaDAO().getAllTipoTransferenciaByPersona(persona.getId());
+		List<Categoria> categoriasTransferencia = DAOFactory.getFactory().getCategoriaDAO().getAllTipoTransferenciaByPersona(persona.getId());
 
 		request.setAttribute("cuenta_origen", cuentasOrigen);
 		request.setAttribute("cuenta_destino", cuentasDestino);
-		request.setAttribute("categorias", categorias);
+		request.setAttribute("categoriasTransferencia", categoriasTransferencia);
 		request.getRequestDispatcher("jsp/dashboard/transferencia.jsp").forward(request, response);
 	}
 
@@ -230,7 +227,6 @@ public class MovimientoController extends HttpServlet {
 			throws ServletException, IOException {
 
 		int idCuentaOrg = Integer.parseInt(request.getParameter("cuenta_origen"));
-		// Otra cuenta
 		int idCuentaDest = Integer.parseInt(request.getParameter("cuenta_destino"));
 
 		int idCategoria = Integer.parseInt(request.getParameter("categoria"));
@@ -243,13 +239,15 @@ public class MovimientoController extends HttpServlet {
 		Cuenta cuentaOrg = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaOrg);
 		Cuenta cuentaDest = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaDest);
 
-		// Verificar que la cuenta origen tenga el total suficiente
-		if (valor <= cuentaOrg.getTotal()) {
-			cuentaOrg.setTotal(cuentaOrg.getTotal() - valor);
-			cuentaDest.setTotal(cuentaDest.getTotal() + valor);
+		if (valor > cuentaOrg.getTotal()) {
+			String mensaje = "El valor de transferencia es mayor a la cantidad existente en la cuenta de origen";
+			request.setAttribute("mensaje", mensaje);
+			request.getRequestDispatcher("jsp/dashboard/error.jsp").forward(request, response);
 		}
+		
+		cuentaOrg.setTotal(cuentaOrg.getTotal() - valor);
+		cuentaDest.setTotal(cuentaDest.getTotal() + valor);
 
-		// Update a las cuentas
 		DAOFactory.getFactory().getCuentaDAO().update(cuentaOrg);
 		DAOFactory.getFactory().getCuentaDAO().update(cuentaDest);
 
@@ -260,13 +258,14 @@ public class MovimientoController extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		// Reigstrar los dos movimientos
 
 		Movimiento movimientoOrg = new Movimiento(concepto, -valor, fecha, categoria, cuentaOrg);
-		Movimiento movimientoDest = new Movimiento(concepto, -valor, fecha, categoria, cuentaDest);
-
+		Movimiento movimientoDest = new Movimiento(concepto, valor, fecha, categoria, cuentaDest, movimientoOrg);
+		
 		DAOFactory.getFactory().getMovimientoDAO().create(movimientoOrg);
 		DAOFactory.getFactory().getMovimientoDAO().create(movimientoDest);
+		movimientoOrg.setRelacion(movimientoDest);
+		DAOFactory.getFactory().getMovimientoDAO().update(movimientoOrg);
 
 		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
 	}

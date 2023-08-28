@@ -35,6 +35,14 @@ public class CategoriaController extends HttpServlet {
 
 	private void ruteador(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
+
+		if (persona == null) {
+			response.sendRedirect("LoginController?ruta=iniciar");
+			return;
+		}
+		
 		String ruta = (request.getParameter("ruta") == null) ? "inicio" : request.getParameter("ruta");
 		switch (ruta) {
 		case "verCategorias":
@@ -51,6 +59,10 @@ public class CategoriaController extends HttpServlet {
 	private void verCategorias(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		List<Tipo> tipos = Tipo.getAll();
+
+		request.setAttribute("tipos", tipos);
+		
 		List<Categoria> categorias = DAOFactory.getFactory().getCategoriaDAO().getAll();
 
 		request.setAttribute("categorias", categorias);
@@ -64,7 +76,7 @@ public class CategoriaController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Persona persona = (Persona) session.getAttribute("personaAtenticada");
 
-		String nombre = request.getParameter("nombreCuenta");
+		String nombre = request.getParameter("nombreCategoria");
 
 		int idTipo = Integer.parseInt(request.getParameter("tipoCategoria"));
 

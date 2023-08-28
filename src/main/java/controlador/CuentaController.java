@@ -32,7 +32,16 @@ public class CuentaController extends HttpServlet {
 	
 	private void ruteador(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String ruta = (request.getParameter("ruta") == null) ? "inicio" : request.getParameter("ruta");
+		
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
+
+		if (persona == null) {
+			response.sendRedirect("LoginController?ruta=iniciar");
+			return;
+		}
+		
+		String ruta = (request.getParameter("ruta") == null) ? "verCuentas" : request.getParameter("ruta");
 		switch (ruta) {
 		case "verCuentas":
 			this.verCuentas(request, response);

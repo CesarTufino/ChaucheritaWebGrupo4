@@ -29,13 +29,14 @@
 </div>
 
 
-<form id="agregarCuentaForm">
+<form id="agregarCuentaForm" action="CuentaController?ruta=registrarCuenta" method="post">
     <div class="mb-3">
         <label for="nombreCuenta" class="form-label">Nombre de la cuenta</label>
-        <input type="text" class="form-control" id="nombreCuenta" placeholder="Nombre de la cuenta">
+        <input type="text" class="form-control" id="nombreCuenta" name="nombreCuenta" placeholder="Nombre de la cuenta">
+        <label for="valorInicial" class="form-label">Valor:</label>
+                <input type="number" id="valorInicial" name="valorInicial" step="0.01" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">Guardar</button>
-    <button type="button" class="btn btn-secondary">Cancelar</button>
 </form>
 
 <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>/-->
