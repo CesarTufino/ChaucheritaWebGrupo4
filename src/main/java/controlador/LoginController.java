@@ -1,11 +1,7 @@
 package controlador;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import modelo.dao.DAOFactory;
 import modelo.entidades.Persona;
-import modelo.jpa.JPAMovimientoDAO;
 
 @WebServlet("/LoginController")
 public class LoginController extends HttpServlet {
@@ -34,7 +29,7 @@ public class LoginController extends HttpServlet {
 	}
 	
 	private void ruteador(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String ruta = (request.getParameter("ruta") == null) ? "inicio" : request.getParameter("ruta");
+		String ruta = (request.getParameter("ruta") == null) ? "iniciar" : request.getParameter("ruta");
 		switch (ruta) {
 		case "iniciar":
 			this.iniciar(request, response);
@@ -74,7 +69,7 @@ public class LoginController extends HttpServlet {
 			// Crear la sesion
 			HttpSession session = request.getSession();
 			session.setAttribute("personaAtenticada", personaAtenticada);
-			response.sendRedirect("DashboardController?ruta=iniciar");
+			response.sendRedirect("DashboardController?ruta=verDashboard");
 		} else {
 			String mensaje = "Ingresaste mal tu usuario y clave";
 			request.setAttribute("mensaje", mensaje);
@@ -83,7 +78,7 @@ public class LoginController extends HttpServlet {
 	}
 	
 	private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("jsp/registro.jsp").forward(request, response);
+		response.sendRedirect("RegistroController?ruta=iniciarRegistro");
 	}
 	
 	private void salir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

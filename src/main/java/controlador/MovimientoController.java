@@ -11,11 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import modelo.dao.DAOFactory;
+import modelo.dto.MovimientoDTO;
 import modelo.entidades.Cuenta;
 import modelo.entidades.Categoria;
 import modelo.entidades.Movimiento;
+import modelo.entidades.Persona;
 
 @WebServlet("/MovimientoController")
 public class MovimientoController extends HttpServlet {
@@ -37,7 +40,16 @@ public class MovimientoController extends HttpServlet {
 
 	private void ruteador(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String ruta = (request.getParameter("ruta") == null) ? "inicio" : request.getParameter("ruta");
+
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
+
+		if (persona == null) {
+			response.sendRedirect("LoginController?ruta=iniciar");
+			return;
+		}
+
+		String ruta = (request.getParameter("ruta") == null) ? "vizualizarTodo" : request.getParameter("ruta");
 		switch (ruta) {
 		case "vizualizarTodo":
 			this.vizualizarTodo(request, response);
@@ -71,7 +83,10 @@ public class MovimientoController extends HttpServlet {
 	private void vizualizarTodo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
+
+		List<MovimientoDTO> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAllByPersona(persona.getId());
 
 		request.setAttribute("movimientos", movimientos);
 
@@ -81,9 +96,13 @@ public class MovimientoController extends HttpServlet {
 	private void vizualizarPorMes(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
+
 		int mes = Integer.parseInt(request.getParameter("mes"));
 
-		List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAllByMes(mes);
+		List<MovimientoDTO> movimientos = DAOFactory.getFactory().getMovimientoDAO()
+				.getAllByPesonaByMes(persona.getId(), mes);
 		request.setAttribute("movimientos", movimientos);
 
 		request.getRequestDispatcher("jsp/dashboard/movimientos.jsp").forward(request, response);
@@ -92,9 +111,13 @@ public class MovimientoController extends HttpServlet {
 	private void iniciarIngreso(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Cuenta> cuentas = DAOFactory.getFactory().getCuentaDAO().getAll();
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
 
-		List<Categoria> categoriasIngreso = DAOFactory.getFactory().getCategoriaDAO().getAllTipoIngreso();
+		List<Cuenta> cuentas = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
+
+		List<Categoria> categoriasIngreso = DAOFactory.getFactory().getCategoriaDAO()
+				.getAllTipoIngresoByPersona(persona.getId());
 
 		request.setAttribute("cuentas", cuentas);
 		request.setAttribute("categoriasIngreso", categoriasIngreso);
@@ -114,12 +137,12 @@ public class MovimientoController extends HttpServlet {
 		Cuenta cuenta = DAOFactory.getFactory().getCuentaDAO().getById(idCuenta);
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 
-		//Poner dinero a la cuenta
-		cuenta.setTotal(cuenta.getTotal()+valor);
-		
+		// Poner dinero a la cuenta
+		cuenta.setTotal(cuenta.getTotal() + valor);
+
 		// Update a la cuenta
 		DAOFactory.getFactory().getCuentaDAO().update(cuenta);
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
 		try {
@@ -138,9 +161,13 @@ public class MovimientoController extends HttpServlet {
 	private void iniciarEgreso(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Cuenta> cuentas = DAOFactory.getFactory().getCuentaDAO().getAll();
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
 
-		List<Categoria> categoriasEgreso = DAOFactory.getFactory().getCategoriaDAO().getAllTipoEgreso();
+		List<Cuenta> cuentas = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
+
+		List<Categoria> categoriasEgreso = DAOFactory.getFactory().getCategoriaDAO()
+				.getAllTipoEgresoByPersona(persona.getId());
 
 		request.setAttribute("cuentas", cuentas);
 		request.setAttribute("categoriasEgreso", categoriasEgreso);
@@ -159,15 +186,15 @@ public class MovimientoController extends HttpServlet {
 
 		Cuenta cuenta = DAOFactory.getFactory().getCuentaDAO().getById(idCuenta);
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
-		
+
 		// Verificar que la cuenta tenga el total suficiente
 		if (valor <= cuenta.getTotal()) {
-			cuenta.setTotal(cuenta.getTotal()-valor);
+			cuenta.setTotal(cuenta.getTotal() - valor);
 		}
-		
+
 		// Update a la cuenta
 		DAOFactory.getFactory().getCuentaDAO().update(cuenta);
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
 		try {
@@ -179,7 +206,6 @@ public class MovimientoController extends HttpServlet {
 		Movimiento movimiento = new Movimiento(concepto, -valor, fecha, categoria, cuenta);
 
 		DAOFactory.getFactory().getMovimientoDAO().create(movimiento);
-		
 
 		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
 	}
@@ -187,16 +213,16 @@ public class MovimientoController extends HttpServlet {
 	private void iniciarTransferencia(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
 		
-		 List<Movimiento> movimientos = DAOFactory.getFactory().getMovimientoDAO().getAll();
-		 List<Cuenta> cuentasOrigen = DAOFactory.getFactory().getCuentaDAO().getAll();
-		 List<Cuenta> cuentasDestino = DAOFactory.getFactory().getCuentaDAO().getAll();
-		 List<Categoria> listaCategorias = DAOFactory.getFactory().getCategoriaDAO().getAll();
-		// DAOFactory.getFactory().getMovimientoDAO().getAll();
+		List<Cuenta> cuentasOrigen = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
+		List<Cuenta> cuentasDestino = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
+		List<Categoria> categorias = DAOFactory.getFactory().getCategoriaDAO().getAllTipoTransferenciaByPersona(persona.getId());
 
 		request.setAttribute("cuenta_origen", cuentasOrigen);
 		request.setAttribute("cuenta_destino", cuentasDestino);
-		request.setAttribute("listaCategorias", listaCategorias);
+		request.setAttribute("categorias", categorias);
 		request.getRequestDispatcher("jsp/dashboard/transferencia.jsp").forward(request, response);
 	}
 
@@ -204,30 +230,29 @@ public class MovimientoController extends HttpServlet {
 			throws ServletException, IOException {
 
 		int idCuentaOrg = Integer.parseInt(request.getParameter("cuenta_origen"));
-		//Otra cuenta
+		// Otra cuenta
 		int idCuentaDest = Integer.parseInt(request.getParameter("cuenta_destino"));
-		
+
 		int idCategoria = Integer.parseInt(request.getParameter("categoria"));
-		
+
 		String concepto = request.getParameter("concepto");
 		String strFecha = request.getParameter("fecha");
 		double valor = Double.parseDouble(request.getParameter("valor"));
-		
+
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 		Cuenta cuentaOrg = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaOrg);
 		Cuenta cuentaDest = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaDest);
-		
+
 		// Verificar que la cuenta origen tenga el total suficiente
 		if (valor <= cuentaOrg.getTotal()) {
-			cuentaOrg.setTotal(cuentaOrg.getTotal()-valor);
-			cuentaDest.setTotal(cuentaDest.getTotal()+valor);
+			cuentaOrg.setTotal(cuentaOrg.getTotal() - valor);
+			cuentaDest.setTotal(cuentaDest.getTotal() + valor);
 		}
 
 		// Update a las cuentas
 		DAOFactory.getFactory().getCuentaDAO().update(cuentaOrg);
 		DAOFactory.getFactory().getCuentaDAO().update(cuentaDest);
-		
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha = new Date();
 		try {
@@ -236,15 +261,14 @@ public class MovimientoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		// Reigstrar los dos movimientos
-		
+
 		Movimiento movimientoOrg = new Movimiento(concepto, -valor, fecha, categoria, cuentaOrg);
 		Movimiento movimientoDest = new Movimiento(concepto, -valor, fecha, categoria, cuentaDest);
 
 		DAOFactory.getFactory().getMovimientoDAO().create(movimientoOrg);
 		DAOFactory.getFactory().getMovimientoDAO().create(movimientoDest);
-		
 
 		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
 	}
-	
+
 }

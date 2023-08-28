@@ -18,10 +18,11 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 	}
 
 	@Override
-	public List<CategoriaTotalDTO> getTotalPorCategorias(int mes) {
-		String sql = "Select c.id, nombre, tipo, propietario, sum(valor) as 'total' from movimiento m JOIN categoria c on m.categoria = c.id where month(fecha) = ? GROUP BY c.id, nombre, tipo;";
+	public List<CategoriaTotalDTO> getCategoriasConTotalByMesByPersona(int mes, int idPersona) {
+		String sql = "Select c.id, nombre, tipo, propietario, sum(valor) as 'total' from movimiento m JOIN categoria c on m.categoria = c.id where month(fecha) = ? AND propietario = ? GROUP BY c.id, nombre, tipo;";
 		Query query = em.createNativeQuery(sql);
 		query.setParameter(1, mes);
+		query.setParameter(2, idPersona);
 		List<Object[]> resultados = query.getResultList();
 		List<CategoriaTotalDTO> categoriasTotalDTO = new ArrayList<>();
 
@@ -36,7 +37,7 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 		}
 		return categoriasTotalDTO;
 	}
-
+	
 	@Override
 	public List<Movimiento> getAllByCuenta(int idCuenta) {
 		String sql = "SELECT * FROM movimiento WHERE cuenta = ?;";
@@ -66,11 +67,11 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 	}
 	
 	@Override
-	public List<MovimientoDTO> getAllByPesonaByMes(int idPesona, int mes) {
+	public List<MovimientoDTO> getAllByPesonaByMes(int idPersona, int mes) {
 		String sql = "SELECT m.ID, m.concepto, m.valor, m.fecha, m.categoria, m.cuenta, m.relacion m FROM movimiento m join cuenta c on m.cuenta = c.ID join persona p on c.propietario = p.ID WHERE month(fecha) = ? and p.id= ?;";
 		Query query = em.createNativeQuery(sql, Movimiento.class);
 		query.setParameter(1, mes);
-		query.setParameter(2, idPesona);
+		query.setParameter(2, idPersona);
 		
 		List<MovimientoDTO> movimientosDTO = new ArrayList<MovimientoDTO>();
 		for(Movimiento m: (List<Movimiento>) query.getResultList()) {
@@ -84,14 +85,14 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 	}
 	
 	@Override
-	public List<MovimientoDTO> getAllByPesona(int idPesona) {
+	public List<MovimientoDTO> getAllByPersona(int idPersona) {
 		String sql = "SELECT m.ID, m.concepto, m.valor, m.fecha, m.categoria, m.cuenta, m.relacion m FROM movimiento m join cuenta c on m.cuenta = c.ID join persona p on c.propietario = p.ID WHERE p.id= ?;";
 		Query query = em.createNativeQuery(sql, Movimiento.class);
-		query.setParameter(1, idPesona);
+		query.setParameter(1, idPersona);
 		
 		List<MovimientoDTO> movimientosDTO = new ArrayList<MovimientoDTO>();
 		for(Movimiento m: (List<Movimiento>) query.getResultList()) {
-			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 		    String fechaFormateada = formato.format(m.getFecha());
 			MovimientoDTO movimientoDTO = new MovimientoDTO(m.getId(), m.getConcepto(), m.getValor(), m.getFecha(), m.getCategoria(), m.getCuenta(), m.getRelacion(), fechaFormateada);
 			movimientosDTO.add(movimientoDTO);

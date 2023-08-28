@@ -9,10 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import modelo.entidades.Persona;
 import modelo.dao.DAOFactory;
 import modelo.dto.CategoriaTotalDTO;
-import modelo.dto.CuentaTotalDTO;
 import modelo.entidades.Cuenta;
 
 @WebServlet("/DashboardController")
@@ -35,30 +36,39 @@ public class DashboardController extends HttpServlet {
 
 	private void ruteador(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String ruta = (request.getParameter("ruta") == null) ? "inicio" : request.getParameter("ruta");
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
+		
+		if (persona == null) {
+			response.sendRedirect("LoginController?ruta=iniciar");
+			return;
+		}
+		
+		String ruta = (request.getParameter("ruta") == null) ? "verDashboard" : request.getParameter("ruta");
 		switch (ruta) {
-		case "iniciar":
-			this.iniciar(request, response);
+		case "verDashboard":
+			this.verDashboard(request, response);
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void iniciar(HttpServletRequest request, HttpServletResponse response)
+	private void verDashboard(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
 		
 		LocalDate fecha = LocalDate.now();
         int mesActual = fecha.getMonthValue();
         int mes = (request.getParameter("mes") == null) ? mesActual : Integer.parseInt(request.getParameter("mes"));
         
-        // Quitar CuentaDTO y Usar Cuenta, cuanta.total
-		List<CategoriaTotalDTO> categoriasTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCategorias(mes);
-		//List<CuentaTotalDTO> cuentaTotalDTO = DAOFactory.getFactory().getMovimientoDAO().getTotalPorCuentas();
-		List<Cuenta> cuentaTotal = DAOFactory.getFactory().getCuentaDAO().getAll();
+		List<CategoriaTotalDTO> categoriasConTotal = DAOFactory.getFactory().getMovimientoDAO().getCategoriasConTotalByMesByPersona(mes, persona.getId());
+		List<Cuenta> cuentas = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
 		
-		request.setAttribute("categoriasTotalDTO", categoriasTotalDTO);
-		request.setAttribute("cuentasTotalDTO", cuentaTotal);
+		request.setAttribute("categoriasConTotal", categoriasConTotal);
+		request.setAttribute("cuentas", cuentas);
 		request.getRequestDispatcher("jsp/dashboard/dashboard.jsp").forward(request, response);
 	}
 

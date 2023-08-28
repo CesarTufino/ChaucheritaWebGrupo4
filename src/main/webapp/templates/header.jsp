@@ -343,7 +343,7 @@
                   <a
                     class="nav-link d-flex align-items-center gap-2 active"
                     aria-current="page"
-                    href="DashboardController?ruta=iniciar">
+                    href="DashboardController?ruta=verDashboard">
                     <i class="bi bi-house-fill"></i>
                     Inicio
                   </a>

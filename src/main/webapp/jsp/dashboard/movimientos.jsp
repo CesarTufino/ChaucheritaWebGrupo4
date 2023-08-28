@@ -5,6 +5,7 @@
 <jsp:include page="../../templates/header.jsp" />
 
 <div class="btn-group d-flex flex-wrap justify-content-center">
+	<a href="MovimientoController?ruta=vizualizarTodo" class="btn btn-primary">Todo</a>
     <a href="MovimientoController?ruta=vizualizarPorMes&mes=1" class="btn btn-secondary">Enero</a>
     <a href="MovimientoController?ruta=vizualizarPorMes&mes=2" class="btn btn-secondary">Febrero</a>
     <a href="MovimientoController?ruta=vizualizarPorMes&mes=3" class="btn btn-secondary">Marzo</a>
@@ -24,8 +25,6 @@
 	<h1 class="h2">Movimientos</h1>
 </div>
 <div class="table-responsive small">
-<a href="MovimientoController?ruta=vizualizarTodo" class="btn btn-primary">Ver
-			Todos los Movimientos</a>
 	<table class="table table-striped table-sm">
 		<thead>
 			<tr>
@@ -43,10 +42,9 @@
 					<td>${movimiento.id}</td>
 					<td>${movimiento.concepto}</td>
 					<td>${movimiento.valor}</td>
-					<td>${movimiento.fecha}</td>
-					<td>${movimiento.categoria.nombre}</td>
+					<td>${movimiento.fechaFormateada}</td>
 					<td>${movimiento.cuenta.nombre}</td>
-					<!-- <td><a href="detalle-movimiento.html" class="btn btn-outline-primary"><i class="bi bi-eye-fill"></i></a></td> -->
+					<td>${movimiento.categoria.nombre}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

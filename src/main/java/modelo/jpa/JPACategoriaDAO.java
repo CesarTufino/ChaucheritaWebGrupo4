@@ -14,37 +14,27 @@ public class JPACategoriaDAO extends JPAGenericDAO<Categoria, Integer> implement
 	}
 
 	@Override
-	public List<Categoria> getAllTipoIngreso() {
-		String sql = "SELECT * FROM categoria WHERE tipo = 0;";
-		Query query = em.createNativeQuery(sql, Categoria.class);
-		
-		return (List<Categoria>) query.getResultList();
-	}
-
-	@Override
-	public List<Categoria> getAllTipoEgreso() {
-		String sql = "SELECT * FROM categoria WHERE tipo = 1;";
-		Query query = em.createNativeQuery(sql, Categoria.class);
-		
-		return (List<Categoria>) query.getResultList();
-	}
-
-	@Override
-	public List<Categoria> getAllTipoTransferencia() {
-		String sql = "SELECT * FROM categoria WHERE tipo = 2;";
-		Query query = em.createNativeQuery(sql, Categoria.class);
-		
-		return (List<Categoria>) query.getResultList();
-	}
-
-	@Override
-	public List<Categoria> getAllByPersona(int idPersona) {
-		String sql = "SELECT * FROM categoria WHERE propietario = ?;";
+	public List<Categoria> getAllTipoIngresoByPersona(int idPersona) {
+		String sql = "SELECT * FROM categoria WHERE tipo = 0 AND propietario = ?;";
 		Query query = em.createNativeQuery(sql, Categoria.class);
 		query.setParameter(1, idPersona);
-		
 		return (List<Categoria>) query.getResultList();
-		
+	}
+
+	@Override
+	public List<Categoria> getAllTipoEgresoByPersona(int idPersona) {
+		String sql = "SELECT * FROM categoria WHERE tipo = 1 AND propietario = ?;";
+		Query query = em.createNativeQuery(sql, Categoria.class);
+		query.setParameter(1, idPersona);
+		return (List<Categoria>) query.getResultList();
+	}
+
+	@Override
+	public List<Categoria> getAllTipoTransferenciaByPersona(int idPersona) {
+		String sql = "SELECT * FROM categoria WHERE tipo = 2 AND propietario = ?;";
+		Query query = em.createNativeQuery(sql, Categoria.class);
+		query.setParameter(1, idPersona);
+		return (List<Categoria>) query.getResultList();
 	}
 
 }

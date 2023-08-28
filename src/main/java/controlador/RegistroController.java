@@ -31,14 +31,21 @@ public class RegistroController extends HttpServlet {
 
 	private void ruteador(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String ruta = (request.getParameter("ruta") == null) ? "inicio" : request.getParameter("ruta");
+		String ruta = (request.getParameter("ruta") == null) ? "iniciarRegistro" : request.getParameter("ruta");
 		switch (ruta) {
+		case "iniciarRegistro":
+			this.iniciarRegistro(request, response);
+			break;
 		case "registrar":
 			this.registrar(request, response);
 			break;
 		default:
 			break;
 		}
+	}
+	
+	private void iniciarRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("jsp/registro.jsp").forward(request, response);
 	}
 
 	private void registrar(HttpServletRequest request, HttpServletResponse response)

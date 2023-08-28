@@ -21,7 +21,6 @@ public class MovimientoDTO implements Serializable {
 
 	public MovimientoDTO(int id, String concepto, double valor, Date fecha, Categoria categoria, Cuenta cuenta,
 			Movimiento relacion, String fechaFormateada) {
-		super();
 		this.id = id;
 		this.concepto = concepto;
 		this.valor = valor;
