@@ -28,43 +28,24 @@
     </table>
 </div>
 
-<!-- Botón para mostrar formulario de agregar categoría -->
-<button class="btn btn-success" id="agregarCategoriaBtn">Agregar Categoría</button>
+<form id="agregarCategoriaForm" method="post" action="ruta_del_servidor">
+    <div class="mb-3">
+        <label for="nombreCategoria" class="form-label">Nombre de la categoría</label>
+        <input type="text" class="form-control" id="nombreCategoria" name="nombreCategoria" placeholder="Nombre de la categoría">
+    </div>
+    <div class="mb-3">
+        <label for="tipoCategoria" class="form-label">Tipo de categoría</label>
+        <select class="form-select" id="tipoCategoria" name="tipoCategoria">
+            <option value="ingreso">Ingreso</option>
+            <option value="egreso">Egreso</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" id="guardarCategoriaBtn">Guardar</button>
+    <button type="button" class="btn btn-secondary" id="cancelarCategoriaBtn">Cancelar</button>
+</form>
 
-<!-- Formulario para agregar categoría -->
-<div id="agregarCategoriaForm" style="display: none;">
-    <input type="text" placeholder="Nombre de la categoría" id="nombreCategoria">
-    <select id="tipoCategoria">
-        <option value="ingreso">Ingreso</option>
-        <option value="egreso">Egreso</option>
-    </select>
-    <button class="btn btn-primary" id="guardarCategoriaBtn">Guardar</button>
-    <button class="btn btn-secondary" id="cancelarCategoriaBtn">Cancelar</button>
-</div>
 <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>/-->
 
-<script>
-    // Mostrar formulario al hacer clic en "Agregar Categoría"
-    document.getElementById("agregarCategoriaBtn").addEventListener("click", function() {
-        document.getElementById("agregarCategoriaForm").style.display = "block";
-    });
 
-    // Ocultar formulario y limpiar campos al hacer clic en "Cancelar"
-    document.getElementById("cancelarCategoriaBtn").addEventListener("click", function() {
-        document.getElementById("agregarCategoriaForm").style.display = "none";
-        document.getElementById("nombreCategoria").value = "";
-        document.getElementById("tipoCategoria").value = "ingreso";
-    });
-
-    // Agregar la lógica para guardar la categoría al hacer clic en "Guardar"
-    document.getElementById("guardarCategoriaBtn").addEventListener("click", function() {
-        var nombreCategoria = document.getElementById("nombreCategoria").value;
-        var tipoCategoria = document.getElementById("tipoCategoria").value;
-        // Aquí puedes agregar la lógica para guardar la categoría en la tabla
-        // y luego actualizar la interfaz según sea necesario.
-        // Por ejemplo, puedes agregar una nueva fila a la tabla con el nombre y tipo de la categoría.
-        // Luego, puedes ocultar el formulario y limpiar los campos.
-    });
-</script>
 
 <jsp:include page="../../templates/footer.jsp" />
