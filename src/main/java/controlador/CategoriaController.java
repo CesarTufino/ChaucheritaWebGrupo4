@@ -59,11 +59,13 @@ public class CategoriaController extends HttpServlet {
 	private void verCategorias(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
+		
 		List<Tipo> tipos = Tipo.getAll();
-
 		request.setAttribute("tipos", tipos);
 		
-		List<Categoria> categorias = DAOFactory.getFactory().getCategoriaDAO().getAll();
+		List<Categoria> categorias = DAOFactory.getFactory().getCategoriaDAO().getAllByPersona(persona.getId());
 
 		request.setAttribute("categorias", categorias);
 

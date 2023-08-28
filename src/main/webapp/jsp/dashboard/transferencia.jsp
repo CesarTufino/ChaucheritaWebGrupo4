@@ -11,7 +11,7 @@
             <div class="col-md-6 mb-3">
                 <label for="cuenta_origen" class="form-label">Cuenta Origen:</label>
                 <select id="cuenta_origen" name="cuenta_origen" class="form-select">
-                	<c:forEach items="${cuenta_origen}" var="cuenta">
+                	<c:forEach items="${cuentas}" var="cuenta">
                         <option value="${cuenta.id}">${cuenta.nombre}</option>
                     </c:forEach>
                     
@@ -20,7 +20,7 @@
             <div class="col-md-6 mb-3">
                 <label for="cuenta_destino" class="form-label">Cuenta Destino:</label>
                 <select id="cuenta_destino" name="cuenta_destino" class="form-select">
-                    <c:forEach items="${cuenta_destino}" var="cuentad">
+                    <c:forEach items="${cuentas}" var="cuentad">
                         <option value="${cuentad.id}">${cuentad.nombre}</option>
                     </c:forEach>
                 </select>

@@ -195,6 +195,7 @@ public class MovimientoController extends HttpServlet {
 			String mensaje = "El valor del egreso es mayor a la cantidad existente en la cuenta seleccionada";
 			request.setAttribute("mensaje", mensaje);
 			request.getRequestDispatcher("jsp/dashboard/error.jsp").forward(request, response);
+			return;
 		}
 		
 		cuenta.setTotal(cuenta.getTotal() - valor);
@@ -213,12 +214,10 @@ public class MovimientoController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Persona persona = (Persona) session.getAttribute("personaAtenticada");
 		
-		List<Cuenta> cuentasOrigen = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
-		List<Cuenta> cuentasDestino = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
+		List<Cuenta> cuentas = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
 		List<Categoria> categoriasTransferencia = DAOFactory.getFactory().getCategoriaDAO().getAllTipoTransferenciaByPersona(persona.getId());
 
-		request.setAttribute("cuenta_origen", cuentasOrigen);
-		request.setAttribute("cuenta_destino", cuentasDestino);
+		request.setAttribute("cuentas", cuentas);
 		request.setAttribute("categoriasTransferencia", categoriasTransferencia);
 		request.getRequestDispatcher("jsp/dashboard/transferencia.jsp").forward(request, response);
 	}
@@ -235,14 +234,16 @@ public class MovimientoController extends HttpServlet {
 		String strFecha = request.getParameter("fecha");
 		double valor = Double.parseDouble(request.getParameter("valor"));
 
-		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 		Cuenta cuentaOrg = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaOrg);
 		Cuenta cuentaDest = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaDest);
+		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
+		
 
 		if (valor > cuentaOrg.getTotal()) {
 			String mensaje = "El valor de transferencia es mayor a la cantidad existente en la cuenta de origen";
 			request.setAttribute("mensaje", mensaje);
 			request.getRequestDispatcher("jsp/dashboard/error.jsp").forward(request, response);
+			return;
 		}
 		
 		cuentaOrg.setTotal(cuentaOrg.getTotal() - valor);

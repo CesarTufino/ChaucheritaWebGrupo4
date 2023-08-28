@@ -37,4 +37,12 @@ public class JPACategoriaDAO extends JPAGenericDAO<Categoria, Integer> implement
 		return (List<Categoria>) query.getResultList();
 	}
 
+	@Override
+	public List<Categoria> getAllByPersona(int idPersona) {
+		String sql = "SELECT * FROM categoria WHERE propietario = ?;";
+		Query query = em.createNativeQuery(sql, Categoria.class);
+		query.setParameter(1, idPersona);
+		return (List<Categoria>) query.getResultList();
+	}
+
 }

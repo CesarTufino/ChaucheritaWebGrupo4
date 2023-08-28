@@ -57,7 +57,10 @@ public class CuentaController extends HttpServlet {
 	private void verCuentas(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Cuenta> cuentas = DAOFactory.getFactory().getCuentaDAO().getAll();
+		HttpSession session = request.getSession();
+		Persona persona = (Persona) session.getAttribute("personaAtenticada");
+		
+		List<Cuenta> cuentas = DAOFactory.getFactory().getCuentaDAO().getAllByPersona(persona.getId());
 		
 		request.setAttribute("cuentas", cuentas);
 
