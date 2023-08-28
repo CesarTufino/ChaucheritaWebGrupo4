@@ -28,50 +28,18 @@
 	</table>
 </div>
 
-<button class="btn btn-success" id="agregarCuentaBtn">Agregar Cuenta</button>
 
+<form id="agregarCuentaForm">
+    <div class="mb-3">
+        <label for="nombreCuenta" class="form-label">Nombre de la cuenta</label>
+        <input type="text" class="form-control" id="nombreCuenta" placeholder="Nombre de la cuenta">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="button" class="btn btn-secondary">Cancelar</button>
+</form>
 
-<!-- Formulario para agregar cuenta -->
-<div id="agregarCuentaForm" style="display: none;">
-	<input type="text" placeholder="Nombre de la cuenta" id="nombreCuenta">
-	<button class="btn btn-primary" id="guardarCuentaBtn">Guardar</button>
-	<button class="btn btn-secondary" id="cancelarCuentaBtn">Cancelar</button>
-</div>
 <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>/-->
-<script>
-	// Mostrar formulario al hacer clic en "Agregar Cuenta"
-	document
-			.getElementById("agregarCuentaBtn")
-			.addEventListener(
-					"click",
-					function() {
-						document.getElementById("agregarCuentaForm").style.display = "block";
-						document.getElementById("agregarCuentaForm").
-					});
 
-	// Ocultar formulario y limpiar campo al hacer clic en "Cancelar"
-	document
-			.getElementById("cancelarCuentaBtn")
-			.addEventListener(
-					"click",
-					function() {
-						document.getElementById("agregarCuentaForm").style.display = "none";
-						document.getElementById("nombreCuenta").value = "";
-					});
-
-	// Agregar la lógica para guardar la cuenta al hacer clic en "Guardar"
-	document.getElementById("guardarCuentaBtn")
-			.addEventListener(
-					"click",
-					function() {
-						var nombreCuenta = document
-								.getElementById("nombreCuenta").value;
-						// Aquí puedes agregar la lógica para guardar la cuenta en la tabla
-						// y luego actualizar la interfaz según sea necesario.
-						// Por ejemplo, puedes agregar una nueva fila a la tabla con el nombre de la cuenta.
-						// Luego, puedes ocultar el formulario y limpiar el campo.
-					});
-</script>
 
 
 <jsp:include page="../../templates/footer.jsp" />
