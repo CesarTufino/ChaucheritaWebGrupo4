@@ -39,34 +39,6 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 	}
 	
 	@Override
-	public List<Movimiento> getAllByCuenta(int idCuenta) {
-		String sql = "SELECT * FROM movimiento WHERE cuenta = ?;";
-		Query query = em.createNativeQuery(sql, Movimiento.class);
-		query.setParameter(1, idCuenta);
-
-		return (List<Movimiento>) query.getResultList();
-	}
-
-	@Override
-	public List<Movimiento> getAllByMes(int mes) {
-		String sql = "SELECT * FROM movimiento WHERE month(fecha) = ?;";
-		Query query = em.createNativeQuery(sql, Movimiento.class);
-		query.setParameter(1, mes);
-
-		return (List<Movimiento>) query.getResultList();
-	}
-
-	@Override
-	public List<Movimiento> getAllByCuentaByMes(int idCuenta, int mes) {
-		String sql = "SELECT * FROM movimiento WHERE month(fecha) = ? and cuenta = ?;";
-		Query query = em.createNativeQuery(sql, Movimiento.class);
-		query.setParameter(1, mes);
-		query.setParameter(2, idCuenta);
-
-		return (List<Movimiento>) query.getResultList();
-	}
-	
-	@Override
 	public List<MovimientoDTO> getAllByPesonaByMes(int idPersona, int mes) {
 		String sql = "SELECT m.ID, m.concepto, m.valor, m.fecha, m.categoria, m.cuenta, m.relacion m FROM movimiento m join cuenta c on m.cuenta = c.ID join persona p on c.propietario = p.ID WHERE month(fecha) = ? and p.id= ?;";
 		Query query = em.createNativeQuery(sql, Movimiento.class);
