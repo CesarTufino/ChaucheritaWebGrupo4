@@ -241,7 +241,14 @@ public class MovimientoController extends HttpServlet {
 		Cuenta cuentaDest = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaDest);
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 		
-
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date fecha = new Date();
+		try {
+			fecha = dateFormat.parse(strFecha);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		if (valor > cuentaOrg.getTotal()) {
 			String mensaje = "El valor de transferencia es mayor a la cantidad existente en la cuenta de origen";
 			request.setAttribute("mensaje", mensaje);
@@ -255,14 +262,6 @@ public class MovimientoController extends HttpServlet {
 		DAOFactory.getFactory().getCuentaDAO().update(cuentaOrg);
 		DAOFactory.getFactory().getCuentaDAO().update(cuentaDest);
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date fecha = new Date();
-		try {
-			fecha = dateFormat.parse(strFecha);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
 		Movimiento movimientoOrg = new Movimiento(concepto, -valor, fecha, categoria, cuentaOrg);
 		Movimiento movimientoDest = new Movimiento(concepto, valor, fecha, categoria, cuentaDest, movimientoOrg);
 		
@@ -271,7 +270,7 @@ public class MovimientoController extends HttpServlet {
 		movimientoOrg.setRelacion(movimientoDest);
 		DAOFactory.getFactory().getMovimientoDAO().update(movimientoOrg);
 
-		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
+		response.sendRedirect("MovimientoController?ruta=iniciarTransferencia");
 	}
 	
 

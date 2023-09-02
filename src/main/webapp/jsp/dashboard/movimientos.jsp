@@ -46,7 +46,7 @@
 					<td>${movimiento.fechaFormateada}</td>
 					<td>${movimiento.cuenta.nombre}</td>
 					<td>${movimiento.categoria.nombre}</td>
-					<td><a class="btn btn-outline-danger" href="MovimientoController?ruta=EliminarMovimiento&idMovimiento=${movimiento.id}"> <i class="bi bi-trash"></i> </a></td>
+					<td><a class="btn btn-outline-danger" href="MovimientoController?ruta=eliminarMovimiento&idMovimiento=${movimiento.id}"> <i class="bi bi-trash"></i> </a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

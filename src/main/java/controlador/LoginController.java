@@ -37,13 +37,8 @@ public class LoginController extends HttpServlet {
 		case "ingresar":
 			this.ingresar(request, response);
 			break;
-		case "registrar":
-			this.registrar(request, response);
-			break;
 		case "salir":
 			this.salir(request, response);
-			break;
-		case "error":
 			break;
 		default:
 			break;
@@ -75,10 +70,6 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("mensaje", mensaje);
 			request.getRequestDispatcher("jsp/dashboard/error.jsp").forward(request, response);
 		}
-	}
-	
-	private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("RegistroController?ruta=iniciarRegistro");
 	}
 	
 	private void salir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

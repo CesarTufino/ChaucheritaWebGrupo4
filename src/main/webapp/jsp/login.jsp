@@ -52,7 +52,7 @@
 		</form>
 		
 		<div class="container text-center my-3">
-			<p>¿No tienes una cuenta? <a href="LoginController?ruta=registrar">Regístrate aquí</a></p>
+			<p>¿No tienes una cuenta? <a href="RegistroController?ruta=iniciarRegistro">Regístrate aquí</a></p>
 		</div>
 	</div>
 </body>
