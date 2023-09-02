@@ -274,9 +274,29 @@ public class MovimientoController extends HttpServlet {
 		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
 	}
 	
-	public void eliminarMovimiento(HttpServletRequest request, HttpServletResponse response)
+
+	private void eliminarMovimiento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		int idMovimiento = Integer.parseInt(request.getParameter("idMovimiento"));
+		
+		Movimiento movimiento = DAOFactory.getFactory().getMovimientoDAO().getById(idMovimiento);
+		
+		Cuenta cuentaOrigen = movimiento.getCuenta();
+		cuentaOrigen.setTotal(cuentaOrigen.getTotal() - movimiento.getValor());
+		
+		Movimiento movimientoRelacionado = movimiento.getRelacion();
+		Cuenta cuentaDestino = null;
+		if (movimientoRelacionado != null) {
+			cuentaDestino = movimientoRelacionado.getCuenta();
+			cuentaDestino.setTotal(cuentaDestino.getTotal() - movimientoRelacionado.getValor());
+		}
+		
+		DAOFactory.getFactory().getCuentaDAO().update(cuentaOrigen);
+		DAOFactory.getFactory().getCuentaDAO().update(cuentaDestino);
+		DAOFactory.getFactory().getMovimientoDAO().deleteById(idMovimiento);
+		
+		response.sendRedirect("MovimientoController?ruta=vizualizarTodo");
 	}
 
 }
