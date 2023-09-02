@@ -75,8 +75,8 @@ public class TransferenciaController extends HttpServlet {
 	private void registarTransferencia(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int idCuentaOrg = Integer.parseInt(request.getParameter("cuenta_origen"));
-		int idCuentaDest = Integer.parseInt(request.getParameter("cuenta_destino"));
+		int idCuentaOrigen = Integer.parseInt(request.getParameter("cuenta_origen"));
+		int idCuentaDestino = Integer.parseInt(request.getParameter("cuenta_destino"));
 
 		int idCategoria = Integer.parseInt(request.getParameter("categoria"));
 
@@ -84,8 +84,8 @@ public class TransferenciaController extends HttpServlet {
 		String strFecha = request.getParameter("fecha");
 		double valor = Double.parseDouble(request.getParameter("valor"));
 
-		Cuenta cuentaOrg = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaOrg);
-		Cuenta cuentaDest = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaDest);
+		Cuenta cuentaOrigen = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaOrigen);
+		Cuenta cuentaDestino = DAOFactory.getFactory().getCuentaDAO().getById(idCuentaDestino);
 		Categoria categoria = DAOFactory.getFactory().getCategoriaDAO().getById(idCategoria);
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -96,26 +96,26 @@ public class TransferenciaController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if (valor > cuentaOrg.getTotal()) {
+		if (valor > cuentaOrigen.getTotal()) {
 			String mensaje = "El valor de transferencia es mayor a la cantidad existente en la cuenta de origen";
 			request.setAttribute("mensaje", mensaje);
 			request.getRequestDispatcher("jsp/dashboard/error.jsp").forward(request, response);
 			return;
 		}
 		
-		cuentaOrg.setTotal(cuentaOrg.getTotal() - valor);
-		cuentaDest.setTotal(cuentaDest.getTotal() + valor);
+		cuentaOrigen.setTotal(cuentaOrigen.getTotal() - valor);
+		cuentaDestino.setTotal(cuentaDestino.getTotal() + valor);
 
-		DAOFactory.getFactory().getCuentaDAO().update(cuentaOrg);
-		DAOFactory.getFactory().getCuentaDAO().update(cuentaDest);
+		DAOFactory.getFactory().getCuentaDAO().update(cuentaOrigen);
+		DAOFactory.getFactory().getCuentaDAO().update(cuentaDestino);
 
-		Movimiento movimientoOrg = new Movimiento(concepto, -valor, fecha, categoria, cuentaOrg);
-		Movimiento movimientoDest = new Movimiento(concepto, valor, fecha, categoria, cuentaDest, movimientoOrg);
+		Movimiento movimientoOrigen = new Movimiento(concepto, -valor, fecha, categoria, cuentaOrigen);
+		Movimiento movimientoDestino = new Movimiento(concepto, valor, fecha, categoria, cuentaDestino, movimientoOrigen);
 		
-		DAOFactory.getFactory().getMovimientoDAO().create(movimientoOrg);
-		DAOFactory.getFactory().getMovimientoDAO().create(movimientoDest);
-		movimientoOrg.setRelacion(movimientoDest);
-		DAOFactory.getFactory().getMovimientoDAO().update(movimientoOrg);
+		DAOFactory.getFactory().getMovimientoDAO().create(movimientoOrigen);
+		DAOFactory.getFactory().getMovimientoDAO().create(movimientoDestino);
+		movimientoOrigen.setRelacion(movimientoDestino);
+		DAOFactory.getFactory().getMovimientoDAO().update(movimientoOrigen);
 
 		response.sendRedirect("TransferenciaController?ruta=iniciarTransferencia");
 	}
