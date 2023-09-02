@@ -75,6 +75,9 @@ public class MovimientoController extends HttpServlet {
 		case "registrarTransferencia":
 			this.registarTransferencia(request, response);
 			break;
+		case "eliminarMovimiento":
+			this.eliminarMovimiento(request, response);
+			break;
 		default:
 			break;
 		}
@@ -269,6 +272,11 @@ public class MovimientoController extends HttpServlet {
 		DAOFactory.getFactory().getMovimientoDAO().update(movimientoOrg);
 
 		response.sendRedirect("MovimientoController?ruta=iniciarEgreso");
+	}
+	
+	public void eliminarMovimiento(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 	}
 
 }

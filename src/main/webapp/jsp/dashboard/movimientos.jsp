@@ -34,6 +34,7 @@
 				<th scope="col">Fecha</th>
 				<th scope="col">Cuenta</th>
 				<th scope="col">Categoria</th>
+				<th scope="col">Eliminar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,6 +46,7 @@
 					<td>${movimiento.fechaFormateada}</td>
 					<td>${movimiento.cuenta.nombre}</td>
 					<td>${movimiento.categoria.nombre}</td>
+					<td><a class="btn btn-outline-danger" href="MovimientoController?ruta=EliminarMovimiento&idMovimiento=${movimiento.id}"> <i class="bi bi-trash"></i> </a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
