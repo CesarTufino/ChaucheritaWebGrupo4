@@ -6,7 +6,7 @@
 
 <div class="container">
     <h1 class="heading">Registro de Gasto</h1>
-    <form action="MovimientoController?ruta=registrarEgreso" method="post">
+    <form action="EgresoController?ruta=registrarEgreso" method="post">
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label for="cuenta" class="form-label">Cuenta:</label>

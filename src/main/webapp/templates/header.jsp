@@ -355,20 +355,20 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=iniciarIngreso">
+                  <a class="nav-link d-flex align-items-center gap-2" href="IngresoController?ruta=iniciarIngreso">
                     <i class="bi bi-download"></i>
                     Ingresar Dinero
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=iniciarEgreso">
+                  <a class="nav-link d-flex align-items-center gap-2" href="EgresoController?ruta=iniciarEgreso">
                     <i class="bi bi-cash-stack"></i>
                     Retirar Dinero
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="MovimientoController?ruta=iniciarTransferencia">
+                  <a class="nav-link d-flex align-items-center gap-2" href="TransferenciaController?ruta=iniciarTransferencia">
                     <i class="bi bi-bank"></i>
                     Tranferencia
                   </a>

@@ -6,7 +6,7 @@
 
 <div class="container">
     <h1 class="heading">Transferencia entre Cuentas</h1>
-    <form action="MovimientoController?ruta=registrarTransferencia" method="post">
+    <form action="TransferenciaController?ruta=registrarTransferencia" method="post">
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="cuenta_origen" class="form-label">Cuenta Origen:</label>
