@@ -73,4 +73,14 @@ public class JPAMovimientoDAO extends JPAGenericDAO<Movimiento, Integer> impleme
 		return movimientosDTO;
 	}
 
+	@Override
+	public List<Movimiento> getByPersona(int idPersona) {
+		String sql = "SELECT m.ID, m.concepto, m.valor, m.fecha, m.categoria, m.cuenta, m.relacion m FROM movimiento m join cuenta c on m.cuenta = c.ID join persona p on c.propietario = p.ID WHERE p.id= ?;";
+		Query query = em.createNativeQuery(sql, Movimiento.class);
+		query.setParameter(1, idPersona);
+		
+		List<MovimientoDTO> movimientosDTO = new ArrayList<MovimientoDTO>();
+		return (List<Movimiento>) query.getResultList();
+	}
+
 }
