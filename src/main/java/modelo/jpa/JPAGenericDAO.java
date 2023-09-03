@@ -38,6 +38,7 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 			em.persist(entity);
 			em.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error de inserción");
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
@@ -52,7 +53,7 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 			em.merge(entity);
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println("Error de inserción");
+			System.out.println("Error actualización");
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
@@ -66,7 +67,7 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID>{
 			em.remove(entity);
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println("Error de inserción");
+			System.out.println("Error eliminación");
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}

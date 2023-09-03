@@ -37,7 +37,7 @@ public class Movimiento implements Serializable {
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "cuenta")
 	private Cuenta cuenta;
-	@OneToOne(cascade = CascadeType.REFRESH)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "relacion")
 	private Movimiento relacion;
 

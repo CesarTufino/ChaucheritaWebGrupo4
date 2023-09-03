@@ -108,7 +108,8 @@ public class MovimientoController extends HttpServlet {
 			DAOFactory.getFactory().getCuentaDAO().update(cuentaDestino);
 		}
 		
-		DAOFactory.getFactory().getMovimientoDAO().delete(movimiento);
+		
+		DAOFactory.getFactory().getMovimientoDAO().deleteById(idMovimiento);
 		
 		response.sendRedirect("MovimientoController?ruta=vizualizarTodo");
 	}
